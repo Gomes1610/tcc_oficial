@@ -25,12 +25,14 @@ export default class LoginScreen extends React.Component{
                     </View>
                     <View style={styles.viewEntradas}>
                         <TextInput //Entrada do Usuário
-                            value={this.state.usuario}
+                            // value={this.state.usuario}
                             style={styles.entradas}
+                            placeholder="Usuário"
                         />
                         <TextInput //Entrada da Senha 
-                            value={this.state.senha}
+                            // value={this.state.senha}
                             style={styles.entradas}
+                            placeholder="Senha"
                         />
                     </View>
                 </View>

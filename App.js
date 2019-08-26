@@ -1,5 +1,5 @@
 import React from 'react'
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import Mapa from './src/componentes/Mapa'
 import PinExpandido from './src/componentes/PinExpandido'
