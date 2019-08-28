@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Keyboard } from 'react-native'
+import { Text, Alert, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Keyboard } from 'react-native'
 
 const cadastros = [
     {
@@ -17,10 +17,40 @@ export default class LoginScreen extends React.Component{
     constructor(){
         super()
         this.state = {
-            _usuario : 'Usuário',
-            _senha :  'Senha',
+            _usuario : '',
+            _senha :  '',
             altura_inferior: 0,
+            usuario : {},
         }
+    }
+
+    handlePress = async () => {
+        fetch('http://192.168.0.6:80/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "login": this.state._usuario,
+                "password": this.state._senha
+            })
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+            var user = JSON.stringify(responseJson)
+            alert(user);
+            if(user != '[]'){
+                const {navigate} = this.props.navigation;
+                navigate('Mapa')
+            }
+      })
+      .then(() => {
+          
+      })
+      .catch((error) => {
+          alert('Erro' + error)
+        console.error(error);
+      });
     }
 
     componentWillMount () {
@@ -123,7 +153,7 @@ export default class LoginScreen extends React.Component{
                     <View style={styles.view_Botoes}>
                         <TouchableOpacity 
                         style={styles.botao_acessar}
-                        onPress={this.validar}
+                        onPress={this.handlePress}
                         >
                             <Text>
                                 Acessar
