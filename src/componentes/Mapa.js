@@ -4,26 +4,29 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native'
 
 import GerenteCores from './GerenteCores'
 
-const dados = [
-  {
-    nome : "Seven King",
-    latitude : -23.9649106,
-    longitude : -46.3222352,
-    cor: GerenteCores(20,4),
-  },
-  {
-    nome : "Subway",
-    latitude : -23.9642757,
-    longitude : -46.3231924,
-    cor : GerenteCores(20,18),
-  },
-  {
-    nome : "Panificadora Vila Rica",
-    latitude : -23.9647329,
-    longitude : -46.3238177,
-    cor: GerenteCores(20,12),
-  },
-]
+// const dados = [
+//   {
+//     nome : "Seven King",
+//     latitude : -23.9649106,
+//     longitude : -46.3222352,
+//     capMax: 20,
+//     capAtual: 4
+//   },
+//   {
+//     nome : "Subway",
+//     latitude : -23.9642757,
+//     longitude : -46.3231924,
+//     capMax: 20,
+//     capAtual: 18
+//   },
+//   {
+//     nome : "Panificadora Vila Rica",
+//     latitude : -23.9647329,
+//     longitude : -46.3238177,
+//     capMax: 20,
+//     capAtual: 12
+//   },
+// ]
 
 export default class Mapa extends React.Component {
   
@@ -31,10 +34,22 @@ export default class Mapa extends React.Component {
     super()
 
     this.state = {
-      status:false
+      status:false,
+      dados:[] //Locais armazenados no banco
     }
   }
   
+  //Carrega os locais armazenados no banco
+  componentDidMount() {
+    fetch('http://192.168.0.6:80/places')
+    .then(response => response.json())
+    .then(data => this.setState({ dados: data }) )
+    .catch((error) => {
+        alert('Erro' + error)
+      console.error(error);
+    });
+  }
+     
   ShowHideViewComponent = () => {
     if(this.state.status == true){
       this.setState({status:false})
@@ -46,12 +61,11 @@ export default class Mapa extends React.Component {
 
   render(){
     const {navigate} = this.props.navigation
-  
+    const {dados} = this.state;    
     const pin = new Array()
   
     for(var i = 0; i < dados.length; i++)
     {
-      var cores = dados[i].cor
       pin.push(
         <MapView.Marker
         key = {i + 1}
@@ -63,12 +77,11 @@ export default class Mapa extends React.Component {
         onPress = {this.ShowHideViewComponent}
         > 
           <Text> {dados[i].nome} </Text>
-          <Image source = {(dados[i].cor)} />
+          <Image source = {(GerenteCores(dados[i].capMax, dados[i].capAtual))} />
         </MapView.Marker>
       )
        
-    }
-  
+    }  
 
     return(
       <View style = {styles.container}>

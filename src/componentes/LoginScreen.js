@@ -1,26 +1,26 @@
 import React from 'react'
 import { Text, Alert, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Keyboard } from 'react-native'
 
-const cadastros = [
-    {
-        usuario: "Lucas",
-        senha: 123,
-    },
-    {
-        usuario: "Gabriel",
-        senha: 456,
-    },
-]
+// const cadastros = [
+//     {
+//         usuario: "Lucas",
+//         senha: 123,
+//     },
+//     {
+//         usuario: "Gabriel",
+//         senha: 456,
+//     },
+// ]
 
 
-export default class LoginScreen extends React.Component{
-    constructor(){
+export default class LoginScreen extends React.Component {
+    constructor() {
         super()
         this.state = {
-            _usuario : '',
-            _senha :  '',
+            _usuario: '',
+            _senha: '',
             altura_inferior: 0,
-            usuario : {},
+            usuario: {},
         }
     }
 
@@ -28,93 +28,95 @@ export default class LoginScreen extends React.Component{
         fetch('http://192.168.0.6:80/login', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 "login": this.state._usuario,
                 "password": this.state._senha
             })
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {
-            var user = JSON.stringify(responseJson)
-            alert(user);
-            if(user != '[]'){
-                const {navigate} = this.props.navigation;
-                navigate('Mapa')
-            }
-      })
-      .then(() => {
-          
-      })
-      .catch((error) => {
-          alert('Erro' + error)
-        console.error(error);
-      });
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                var user = JSON.stringify(responseJson)
+                if (user != '[]') {
+                    const { navigate } = this.props.navigation;
+                    navigate('Mapa')
+                }
+                else {
+                    alert('Usuário ou senhas inválido(s).');
+                }
+            })
+            .then(() => {
+
+            })
+            .catch((error) => {
+                alert('Erro' + error)
+                console.error(error);
+            });
     }
 
-    componentWillMount () {
-        
+    componentWillMount() {
+
         ////////////////////Tratamento da manipulação da tela ao aparecer e desaparecer do traclado
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.subir_View);
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidHide', this.descer_View);
-      }
-    
-    componentWillUnmount () {
+    }
+
+    componentWillUnmount() {
 
         ////////////////////Tratamento da manipulação da tela ao aparecer e desaparecer do traclado
         this.keyboardDidShowListener.remove();
         this.keyboardDidHideListener.remove();
-      }
-    
-    
+    }
+
+
     ////////////////////Tratamento da manipulação da tela ao aparecer e desaparecer do traclado
     subir_View = () => {
-        this.setState({altura_inferior: 72.5})
+        this.setState({ altura_inferior: 72.5 })
     }
     descer_View = () => {
-        this.setState({altura_inferior: 0})
+        this.setState({ altura_inferior: 0 })
     }
 
     ////////////////////Validação do Usuário e Senha
     validar = () => {
-        const {navigate} = this.props.navigation
-        for(var i = 0; i < cadastros.length; i++){
-            if(this.state._usuario == cadastros[i].usuario && this.state._senha == cadastros[i].senha){
-            navigate('Mapa')
+        const { navigate } = this.props.navigation
+        for (var i = 0; i < cadastros.length; i++) {
+            if (this.state._usuario == cadastros[i].usuario && this.state._senha == cadastros[i].senha) {
+                navigate('Mapa')
             }
         }
     }
 
     ////////////////////Manutenção dos Textos Padrões
     apaga_texto_usuario_default = () => {
-        if(this.state._usuario == 'Usuário'){
-            this.setState({_usuario: ''})
+        if (this.state._usuario == 'Usuário') {
+            this.setState({ _usuario: '' })
         }
     }
 
     apaga_texto_senha_default = () => {
-        if(this.state._senha == 'Senha'){
-            this.setState({_senha: ''})
+        if (this.state._senha == 'Senha') {
+            this.setState({ _senha: '' })
         }
     }
 
     escreve_texto_usuario_default = () => {
-        if(this.state._usuario == ''){
-            this.setState({_usuario: 'Usuário'})
+        if (this.state._usuario == '') {
+            this.setState({ _usuario: 'Usuário' })
         }
     }
-    
+
     escreve_texto_senha_default = () => {
-        if(this.state._senha == ''){
-            this.setState({_senha: 'Senha'})
+        if (this.state._senha == '') {
+            this.setState({ _senha: 'Senha' })
         }
     }
 
     ////////////////////Renderização
-    render(){
-        return(
-            <View style={{ position: 'relative', bottom: this.state.altura_inferior,}}
+    render() {
+        return (
+            <View style={{ position: 'relative', bottom: this.state.altura_inferior, }}
             >
                 <ImageBackground
                     source={require('../Imagens/Nebulosa2.jpg')}
@@ -122,9 +124,9 @@ export default class LoginScreen extends React.Component{
                 />
                 <View style={styles.container}>
                     <View style={styles.view_Login}>
-                        <Image 
+                        <Image
                             source={require('../Imagens/Icone_Avatar.png')}
-                            style={{ width: 50, height: 50 }} 
+                            style={{ width: 50, height: 50 }}
                         />
                         <Text style={styles.login}>
                             Login
@@ -133,7 +135,7 @@ export default class LoginScreen extends React.Component{
                     <View style={styles.view_Entradas}>
                         <TextInput //Entrada do Usuário
                             // value={this.state.usuario}
-                            onChangeText={(text) => this.setState({_usuario: text})}
+                            onChangeText={(text) => this.setState({ _usuario: text })}
                             // onFocus={this.apaga_texto_usuario_default}
                             // onBlur={this.escreve_texto_usuario_default}
                             // value={this.state._usuario}
@@ -142,25 +144,26 @@ export default class LoginScreen extends React.Component{
                         />
                         <TextInput //Entrada da Senha 
                             // value={this.state.senha}
-                            onChangeText={(text) => this.setState({_senha: text})}
+                            onChangeText={(text) => this.setState({ _senha: text })}
                             // onFocus={this.apaga_texto_senha_default}
                             // onBlur={this.escreve_texto_senha_default}
                             // value={this.state._senha}
+                            secureTextEntry={true}
                             style={styles.entradas}
                             placeholder="Senha"
                         />
                     </View>
                     <View style={styles.view_Botoes}>
-                        <TouchableOpacity 
-                        style={styles.botao_acessar}
-                        onPress={this.handlePress}
+                        <TouchableOpacity
+                            style={styles.botao_acessar}
+                            onPress={this.handlePress}
                         >
                             <Text>
                                 Acessar
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity 
-                        style={styles.botao_cadastrar}
+                        <TouchableOpacity
+                            style={styles.botao_cadastrar}
                         >
                             <Text>
                                 Cadastrar
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
-    view_Entradas:{
+    view_Entradas: {
         position: 'relative',
         top: '20%',
     },
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
         left: '2%',
         flex: 1,
         flexDirection: 'row',
-        
+
     },
     botao_acessar: {
         alignItems: 'center',
@@ -222,8 +225,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: '44.5%',
         height: '40%',
-      },
-      botao_cadastrar: {
+    },
+    botao_cadastrar: {
         alignItems: 'center',
         backgroundColor: '#DDDDDD',
         margin: 5,
@@ -231,5 +234,5 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: '44.5%',
         height: '40%',
-      },
+    },
 })
