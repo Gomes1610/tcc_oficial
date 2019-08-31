@@ -4,12 +4,19 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Mapa from './src/componentes/Mapa'
 import PinExpandido from './src/componentes/PinExpandido'
 import LoginScreen from './src/componentes/LoginScreen'
+import RegisterScreen from './src/componentes/RegisterScreen'
 
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
-  LoginScreen: {
+  Login: {
     screen: LoginScreen,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  Register: {
+    screen: RegisterScreen,
     navigationOptions: {
       header: null,
     }

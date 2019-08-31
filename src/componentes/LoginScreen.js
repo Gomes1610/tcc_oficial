@@ -141,6 +141,7 @@ export default class LoginScreen extends React.Component {
                             // value={this.state._usuario}
                             style={styles.entradas}
                             placeholder="Usuário"
+                            autoCapitalize="none"
                         />
                         <TextInput //Entrada da Senha 
                             // value={this.state.senha}
@@ -151,6 +152,7 @@ export default class LoginScreen extends React.Component {
                             secureTextEntry={true}
                             style={styles.entradas}
                             placeholder="Senha"
+                            keyboardType="numeric"
                         />
                     </View>
                     <View style={styles.view_Botoes}>
@@ -164,6 +166,7 @@ export default class LoginScreen extends React.Component {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.botao_cadastrar}
+                            onPress={() => this.props.navigation.navigate('Register')}
                         >
                             <Text>
                                 Cadastrar
