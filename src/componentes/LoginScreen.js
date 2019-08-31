@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Alert, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Keyboard } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Keyboard } from 'react-native'
 
 // const cadastros = [
 //     {
@@ -17,8 +17,8 @@ export default class LoginScreen extends React.Component {
     constructor() {
         super()
         this.state = {
-            _usuario: '',
-            _senha: '',
+            login: '',
+            senha: '',
             altura_inferior: 0,
             usuario: {},
         }
@@ -31,8 +31,8 @@ export default class LoginScreen extends React.Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "login": this.state._usuario,
-                "password": this.state._senha
+                "login": this.state.login,
+                "password": this.state.senha
             })
         })
             .then((response) => response.json())
@@ -82,7 +82,7 @@ export default class LoginScreen extends React.Component {
     validar = () => {
         const { navigate } = this.props.navigation
         for (var i = 0; i < cadastros.length; i++) {
-            if (this.state._usuario == cadastros[i].usuario && this.state._senha == cadastros[i].senha) {
+            if (this.state.login == cadastros[i].usuario && this.state.senha == cadastros[i].senha) {
                 navigate('Mapa')
             }
         }
@@ -90,26 +90,26 @@ export default class LoginScreen extends React.Component {
 
     ////////////////////Manutenção dos Textos Padrões
     apaga_texto_usuario_default = () => {
-        if (this.state._usuario == 'Usuário') {
-            this.setState({ _usuario: '' })
+        if (this.state.login == 'Usuário') {
+            this.setState({ login: '' })
         }
     }
 
     apaga_texto_senha_default = () => {
-        if (this.state._senha == 'Senha') {
-            this.setState({ _senha: '' })
+        if (this.state.senha == 'Senha') {
+            this.setState({ senha: '' })
         }
     }
 
     escreve_texto_usuario_default = () => {
-        if (this.state._usuario == '') {
-            this.setState({ _usuario: 'Usuário' })
+        if (this.state.login == '') {
+            this.setState({ login: 'Usuário' })
         }
     }
 
     escreve_texto_senha_default = () => {
-        if (this.state._senha == '') {
-            this.setState({ _senha: 'Senha' })
+        if (this.state.senha == '') {
+            this.setState({ senha: 'Senha' })
         }
     }
 
@@ -135,24 +135,30 @@ export default class LoginScreen extends React.Component {
                     <View style={styles.view_Entradas}>
                         <TextInput //Entrada do Usuário
                             // value={this.state.usuario}
-                            onChangeText={(text) => this.setState({ _usuario: text })}
+                            onChangeText={(text) => this.setState({ login: text })}
                             // onFocus={this.apaga_texto_usuario_default}
                             // onBlur={this.escreve_texto_usuario_default}
                             // value={this.state._usuario}
                             style={styles.entradas}
-                            placeholder="Usuário"
-                            autoCapitalize="none"
+                            placeholder="Login"
+                            returnKeyType = "next"
+                            onSubmitEditing = {() => this.passwordInput.focus()}
+                            keyboardType = "email-address"
+                            autoCapitalize = "none"
+                            autoCorrect = {true}
                         />
                         <TextInput //Entrada da Senha 
                             // value={this.state.senha}
-                            onChangeText={(text) => this.setState({ _senha: text })}
+                            onChangeText={(text) => this.setState({ senha: text })}
                             // onFocus={this.apaga_texto_senha_default}
                             // onBlur={this.escreve_texto_senha_default}
                             // value={this.state._senha}
-                            secureTextEntry={true}
                             style={styles.entradas}
                             placeholder="Senha"
                             keyboardType="numeric"
+                            returnKeyType = "go"
+                            secureTextEntry
+                            ref = {(input) => this.passwordInput = input}
                         />
                     </View>
                     <View style={styles.view_Botoes}>

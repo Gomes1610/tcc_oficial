@@ -93,6 +93,12 @@ export default class Mapa extends React.Component {
             latitudeDelta: 0.0042,
             longitudeDelta: 0.0031,
           }}
+          showsMyLocationButton
+          showsUserLocation
+          loadingEnabled = {true}
+          scrollEnabled={true}
+          zoomEnabled={true}
+          showsPointsOfInterest
           customMapStyle={EstiloMapaCustomizado}
         >  
         {
