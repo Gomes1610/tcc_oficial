@@ -30,6 +30,7 @@ export default class PinReduzido extends React.Component{
                     style={[
                         styles.faixa, 
                         {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)[1]}
+                        // {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)}
                     ]}
                 />
 

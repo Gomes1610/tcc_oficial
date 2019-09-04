@@ -5,56 +5,57 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native'
 import GerenteCores from './GerenteCores'
 import PinReduzido from './PinReduzido'
 
-const dados = [
-  {
-    id: 1,
-    nome : "Seven Kings Burgers N'Beers",
-    latitude : -23.9649106,
-    longitude : -46.3222352,
-    capMax: 20,
-    capAtual: 4,
-  },
-  {
-    id: 2,
-    nome : "Subway",
-    latitude : -23.9642757,
-    longitude : -46.3231924,
-    capMax: 20,
-    capAtual: 18,
-  },
-  {
-    id: 3,
-    nome : "Panificadora Vila Rica",
-    latitude : -23.9647329,
-    longitude : -46.3238177,
-    capMax: 20,
-    capAtual: 12,
-  },
-  {
-    id: 4,
-    nome : "Café Filomena",
-    latitude : -23.9645135,
-    longitude : -46.3214546,
-    capMax: 20,
-    capAtual: 12,
-  },
-  {
-    id: 5,
-    nome : "Madero Container",
-    latitude : -23.9637359,
-    longitude : -46.3229151,
-    capMax: 20,
-    capAtual: 3,
-  },
-  {
-    id: 6,
-    nome : "Giani Gastronomia",
-    latitude : -23.9646434,
-    longitude : -46.3206909,
-    capMax: 20,
-    capAtual: 19,
-  },
-]
+// var this.state.dados;
+// const this.state.dados = [
+//   {
+//     id: 1,
+//     nome : "Seven Kings Burgers N'Beers",
+//     latitude : -23.9649106,
+//     longitude : -46.3222352,
+//     capMax: 20,
+//     capAtual: 4,
+//   },
+//   {
+//     id: 2,
+//     nome : "Subway",
+//     latitude : -23.9642757,
+//     longitude : -46.3231924,
+//     capMax: 20,
+//     capAtual: 18,
+//   },
+//   {
+//     id: 3,
+//     nome : "Panificadora Vila Rica",
+//     latitude : -23.9647329,
+//     longitude : -46.3238177,
+//     capMax: 20,
+//     capAtual: 12,
+//   },
+//   {
+//     id: 4,
+//     nome : "Café Filomena",
+//     latitude : -23.9645135,
+//     longitude : -46.3214546,
+//     capMax: 20,
+//     capAtual: 12,
+//   },
+//   {
+//     id: 5,
+//     nome : "Madero Container",
+//     latitude : -23.9637359,
+//     longitude : -46.3229151,
+//     capMax: 20,
+//     capAtual: 3,
+//   },
+//   {
+//     id: 6,
+//     nome : "Giani Gastronomia",
+//     latitude : -23.9646434,
+//     longitude : -46.3206909,
+//     capMax: 20,
+//     capAtual: 19,
+//   },
+// ]
 
 export default class Mapa extends React.Component {
   
@@ -70,27 +71,38 @@ export default class Mapa extends React.Component {
         _capMax: 0,
         _capAtual: 0,
       },
+      dados: [],
     }
   }
+
+  componentDidMount() {
+    fetch('http://192.168.0.6:80/places')
+    .then(response => response.json())
+    .then(data => this.setState({ dados: data }) )
+    .catch((error) => {
+        alert('Erro' + error)
+      console.error(error);
+    });
+  }
   
-  ShowHidePinReduzido(_id){
+  ShowHidePinReduzido(id){
     if(this.state.status){
       this.setState({status:false})
     } 
     else{
       this.setState({status:true})
-      this.GerentePinReduzido(_id)
+      this.GerentePinReduzido(id)
     }
   }
 
-  GerentePinReduzido = (_id) => {
-    for(var i = 0; i < dados.length; i++){
-      if(dados[i].id == _id){
+  GerentePinReduzido = (id) => {
+    for(var i = 0; i < this.state.dados.length; i++){
+      if(this.state.dados[i]._id == id){
         this.setState({
           pinSelect: {
-            _nome: dados[i].nome,
-            _capMax: dados[i].capMax,
-            _capAtual: dados[i].capAtual,
+            _nome: this.state.dados[i].nome,
+            _capMax: this.state.dados[i].capMax,
+            _capAtual: this.state.dados[i].capAtual,
           }
         })
       }
@@ -102,20 +114,20 @@ export default class Mapa extends React.Component {
 
     const pin = new Array()
 
-    for(var i = 0; i < dados.length; i++)
+    for(var i = 0; i < this.state.dados.length; i++)
     {
       pin.push(
         <MapView.Marker
         key = {i + 1}
         coordinate = {{
-          latitude: dados[i].latitude,
-          longitude: dados[i].longitude,
+          latitude: this.state.dados[i].latitude,
+          longitude: this.state.dados[i].longitude,
         }}
         style = {styles.markerContainer}
-        onPress = {this.ShowHidePinReduzido.bind(this, dados[i].id)}
+        onPress = {this.ShowHidePinReduzido.bind(this, this.state.dados[i]._id)}
         >
-          <Text> {dados[i].nome} </Text>
-          <Image source = {GerenteCores(dados[i].capMax,dados[i].capAtual)} />
+          <Text> {this.state.dados[i].nome} </Text>
+          <Image source = {GerenteCores(this.state.dados[i].capMax,this.state.dados[i].capAtual)} />
         </MapView.Marker>
         )
        

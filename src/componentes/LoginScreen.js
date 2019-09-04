@@ -23,6 +23,40 @@ export default class LoginScreen extends React.Component{
         }
     }
 
+    handlePress = async () => {
+        fetch('http://192.168.0.6:80/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "login": this.state._usuario,
+                "password": this.state._senha
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                var user = JSON.stringify(responseJson)
+                if (user != '[]') {
+                    const { navigate } = this.props.navigation;
+                    navigate('Mapa')
+                    
+                    ////TEM QUE USAR ESSE MAS DEVEMOS AJUSTAR OS EVENTOS DO TECLADO
+                    // this.props.navigation.replace('Mapa') 
+                }
+                else {
+                    alert('Usuário ou senhas inválido(s).');
+                }
+            })
+            .then(() => {
+
+            })
+            .catch((error) => {
+                alert('Erro' + error)
+                console.error(error);
+            });
+    }
+
     componentWillMount () {
         
         ////////////////////Tratamento da manipulação da tela ao aparecer e desaparecer do traclado
@@ -94,7 +128,8 @@ export default class LoginScreen extends React.Component{
                     <View style={styles.view_Botoes}>
                         <TouchableOpacity 
                         style={styles.botao_acessar}
-                        onPress={this.validar}
+                        // onPress={this.validar}
+                        onPress={this.handlePress}
                         >
                             <Text>
                                 Acessar
@@ -102,6 +137,7 @@ export default class LoginScreen extends React.Component{
                         </TouchableOpacity>
                         <TouchableOpacity 
                         style={styles.botao_cadastrar}
+                        onPress={() => this.props.navigation.navigate('Register')}
                         >
                             <Text>
                                 Cadastrar
