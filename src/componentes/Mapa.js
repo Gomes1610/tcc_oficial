@@ -6,56 +6,56 @@ import GerenteCores from './GerenteCores'
 import PinReduzido from './PinReduzido'
 
 // var this.state.dados;
-// const this.state.dados = [
-//   {
-//     id: 1,
-//     nome : "Seven Kings Burgers N'Beers",
-//     latitude : -23.9649106,
-//     longitude : -46.3222352,
-//     capMax: 20,
-//     capAtual: 4,
-//   },
-//   {
-//     id: 2,
-//     nome : "Subway",
-//     latitude : -23.9642757,
-//     longitude : -46.3231924,
-//     capMax: 20,
-//     capAtual: 18,
-//   },
-//   {
-//     id: 3,
-//     nome : "Panificadora Vila Rica",
-//     latitude : -23.9647329,
-//     longitude : -46.3238177,
-//     capMax: 20,
-//     capAtual: 12,
-//   },
-//   {
-//     id: 4,
-//     nome : "Café Filomena",
-//     latitude : -23.9645135,
-//     longitude : -46.3214546,
-//     capMax: 20,
-//     capAtual: 12,
-//   },
-//   {
-//     id: 5,
-//     nome : "Madero Container",
-//     latitude : -23.9637359,
-//     longitude : -46.3229151,
-//     capMax: 20,
-//     capAtual: 3,
-//   },
-//   {
-//     id: 6,
-//     nome : "Giani Gastronomia",
-//     latitude : -23.9646434,
-//     longitude : -46.3206909,
-//     capMax: 20,
-//     capAtual: 19,
-//   },
-// ]
+data = [
+  {
+    _id: 1,
+    nome : "Seven Kings Burgers N'Beers",
+    latitude : -23.9649106,
+    longitude : -46.3222352,
+    capMax: 20,
+    capAtual: 4,
+  },
+  {
+    _id: 2,
+    nome : "Subway",
+    latitude : -23.9642757,
+    longitude : -46.3231924,
+    capMax: 20,
+    capAtual: 18,
+  },
+  {
+    _id: 3,
+    nome : "Panificadora Vila Rica",
+    latitude : -23.9647329,
+    longitude : -46.3238177,
+    capMax: 20,
+    capAtual: 12,
+  },
+  {
+    _id: 4,
+    nome : "Café Filomena",
+    latitude : -23.9645135,
+    longitude : -46.3214546,
+    capMax: 20,
+    capAtual: 12,
+  },
+  {
+    _id: 5,
+    nome : "Madero Container",
+    latitude : -23.9637359,
+    longitude : -46.3229151,
+    capMax: 20,
+    capAtual: 3,
+  },
+  {
+    _id: 6,
+    nome : "Giani Gastronomia",
+    latitude : -23.9646434,
+    longitude : -46.3206909,
+    capMax: 20,
+    capAtual: 19,
+  },
+]
 
 export default class Mapa extends React.Component {
   
@@ -71,7 +71,7 @@ export default class Mapa extends React.Component {
         _capMax: 0,
         _capAtual: 0,
       },
-      dados: [],
+      dados: data,
     }
   }
 
@@ -85,24 +85,27 @@ export default class Mapa extends React.Component {
     });
   }
   
-  ShowHidePinReduzido(id){
+  ShowHidePinReduzido(event){
+    const key = event._targetInst.return.key;
+
     if(this.state.status){
       this.setState({status:false})
     } 
     else{
       this.setState({status:true})
-      this.GerentePinReduzido(id)
+      this.GerentePinReduzido(key)
     }
   }
 
-  GerentePinReduzido = (id) => {
-    for(var i = 0; i < this.state.dados.length; i++){
-      if(this.state.dados[i]._id == id){
+  GerentePinReduzido = (key) => {
+    const dados = this.state.dados;
+    for(var i = 0; i < dados.length; i++){
+      if(dados[i]._id == key){
         this.setState({
           pinSelect: {
-            _nome: this.state.dados[i].nome,
-            _capMax: this.state.dados[i].capMax,
-            _capAtual: this.state.dados[i].capAtual,
+            _nome: dados[i].nome,
+            _capMax: dados[i].capMax,
+            _capAtual: dados[i].capAtual,
           }
         })
       }
@@ -118,16 +121,17 @@ export default class Mapa extends React.Component {
     {
       pin.push(
         <MapView.Marker
-        key = {i + 1}
+        // key = {i + 1}
+        key = {this.state.dados[i]._id}
         coordinate = {{
           latitude: this.state.dados[i].latitude,
           longitude: this.state.dados[i].longitude,
         }}
         style = {styles.markerContainer}
-        onPress = {this.ShowHidePinReduzido.bind(this, this.state.dados[i]._id)}
+        onPress = {(event) => this.ShowHidePinReduzido(event)}
         >
           <Text> {this.state.dados[i].nome} </Text>
-          <Image source = {GerenteCores(this.state.dados[i].capMax,this.state.dados[i].capAtual)} />
+          <Image source = {GerenteCores(this.state.dados[i].capMax,this.state.dados[i].capAtual, "Imagem")} />
         </MapView.Marker>
         )
        

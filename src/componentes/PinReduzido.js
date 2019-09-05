@@ -25,12 +25,12 @@ export default class PinReduzido extends React.Component{
     render(){
         
         return(
+            
             <View style={styles.mini_container}>
                 <View //Faixa lateral colorida do PinReduzido
                     style={[
                         styles.faixa, 
-                        {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)[1]}
-                        // {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)}
+                        {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)}
                     ]}
                 />
 
