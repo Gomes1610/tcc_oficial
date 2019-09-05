@@ -5,6 +5,7 @@ import Mapa from './src/componentes/Mapa'
 import PinExpandido from './src/componentes/PinExpandido'
 import LoginScreen from './src/componentes/LoginScreen'
 import RegisterScreen from './src/componentes/RegisterScreen'
+import Informante from './src/componentes/Informante'
 
 
 const MainNavigator = createStackNavigator({
@@ -33,6 +34,12 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
+  Informante: {
+    screen: Informante,
+    navigationOptions: {
+      header: null,
+    }
+  }
 });
 
 const App = createAppContainer(MainNavigator);
