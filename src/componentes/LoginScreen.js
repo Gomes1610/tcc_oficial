@@ -23,8 +23,10 @@ export default class LoginScreen extends React.Component{
         }
     }
 
+    ////////////////////Consulta no banco se Usuário e Senha existem
+
     handlePress = async () => {
-        fetch('http://192.168.0.6:80/login', {
+        fetch('http://192.168.100.104:80/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +59,7 @@ export default class LoginScreen extends React.Component{
             });
     }
 
-    componentWillMount () {
+    componentDidMount () {
         
         ////////////////////Tratamento da manipulação da tela ao aparecer e desaparecer do traclado
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.subir_View);
@@ -78,16 +80,6 @@ export default class LoginScreen extends React.Component{
     }
     descer_View = () => {
         this.setState({altura_inferior: 0})
-    }
-
-    ////////////////////Validação do Usuário e Senha
-    validar = () => {
-        const {navigate} = this.props.navigation
-        for(var i = 0; i < cadastros.length; i++){
-            if(this.state._usuario == cadastros[i].usuario && this.state._senha == cadastros[i].senha){
-            navigate('Mapa')
-            }
-        }
     }
 
     ////////////////////Renderização
@@ -128,7 +120,6 @@ export default class LoginScreen extends React.Component{
                     <View style={styles.view_Botoes}>
                         <TouchableOpacity 
                         style={styles.botao_acessar}
-                        // onPress={this.validar}
                         onPress={this.handlePress}
                         >
                             <Text>

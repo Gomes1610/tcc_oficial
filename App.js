@@ -6,6 +6,7 @@ import PinExpandido from './src/componentes/PinExpandido'
 import LoginScreen from './src/componentes/LoginScreen'
 import RegisterScreen from './src/componentes/RegisterScreen'
 import Informante from './src/componentes/Informante'
+import Ouvidoria from './src/componentes/Ouvidoria'
 
 
 const MainNavigator = createStackNavigator({
@@ -16,8 +17,8 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
-  Register: {
-    screen: RegisterScreen,
+  Informante: {
+    screen: Informante,
     navigationOptions: {
       header: null,
     }
@@ -28,18 +29,24 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
+  Register: {
+    screen: RegisterScreen,
+    navigationOptions: {
+      header: null,
+    }
+  },
   PinExpandido: {
     screen: PinExpandido,
     navigationOptions: {
       header: null,
     }
   },
-  Informante: {
-    screen: Informante,
+  Ouvidoria: {
+    screen: Ouvidoria,
     navigationOptions: {
       header: null,
     }
-  }
+  },
 });
 
 const App = createAppContainer(MainNavigator);

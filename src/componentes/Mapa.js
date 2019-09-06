@@ -5,7 +5,7 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native'
 import GerenteCores from './GerenteCores'
 import PinReduzido from './PinReduzido'
 
-// var this.state.dados;
+/*
 data = [
   {
     _id: 1,
@@ -17,7 +17,7 @@ data = [
   },
   {
     _id: 2,
-    nome : "Subway",
+    nome : "mamão",
     latitude : -23.9642757,
     longitude : -46.3231924,
     capMax: 20,
@@ -56,6 +56,7 @@ data = [
     capAtual: 19,
   },
 ]
+*/
 
 export default class Mapa extends React.Component {
   
@@ -70,13 +71,14 @@ export default class Mapa extends React.Component {
         _nome: '',
         _capMax: 0,
         _capAtual: 0,
+        _id: 0,
       },
-      dados: data,
+      dados: [],
     }
   }
 
   componentDidMount() {
-    fetch('http://192.168.0.6:80/places')
+    fetch('http://192.168.100.104:80/places')
     .then(response => response.json())
     .then(data => this.setState({ dados: data }) )
     .catch((error) => {
@@ -106,6 +108,7 @@ export default class Mapa extends React.Component {
             _nome: dados[i].nome,
             _capMax: dados[i].capMax,
             _capAtual: dados[i].capAtual,
+            _id: key,
           }
         })
       }
@@ -121,7 +124,6 @@ export default class Mapa extends React.Component {
     {
       pin.push(
         <MapView.Marker
-        // key = {i + 1}
         key = {this.state.dados[i]._id}
         coordinate = {{
           latitude: this.state.dados[i].latitude,
@@ -131,7 +133,7 @@ export default class Mapa extends React.Component {
         onPress = {(event) => this.ShowHidePinReduzido(event)}
         >
           <Text> {this.state.dados[i].nome} </Text>
-          <Image source = {GerenteCores(this.state.dados[i].capMax,this.state.dados[i].capAtual, "Imagem")} />
+          <Image source = {GerenteCores(this.state.dados[i].capMax,this.state.dados[i].capAtual)[0]} />
         </MapView.Marker>
         )
        
@@ -162,6 +164,7 @@ export default class Mapa extends React.Component {
             nome={this.state.pinSelect._nome}
             capMax={this.state.pinSelect._capMax}
             capAtual={this.state.pinSelect._capAtual}
+            selecionado={this.state.pinSelect._id}
             _navigate={navigate}
           />
           )

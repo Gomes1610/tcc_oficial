@@ -10,11 +10,10 @@ export default class Informante extends React.Component{
         super()
     }
 
-    _selecionado = () => {
-
-    }
-
     render(){
+
+        const {navigate} = this.props.navigation
+
         return(
             <View>
                 <ImageBackground
@@ -24,13 +23,13 @@ export default class Informante extends React.Component{
                 <View style={styles.view_button}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={this._selecionado}
+                        onPress={() => navigate('Ouvidoria', {status: 1, selecionado: this.props.navigation.getParam('_selecionado', 0)})}
                     >
                         <Text>Número de pessoas</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={this._selecionado}
+                        onPress={() => navigate('Ouvidoria', {status: 2, selecionado: this.props.navigation.getParam('_selecionado', 0)})}
                     >
                         <Text>Tempo da fila</Text>
                     </TouchableOpacity>

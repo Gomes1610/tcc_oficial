@@ -14,7 +14,7 @@ export default class PinReduzido extends React.Component{
         //Na tela Mapa, ao chamar a tag <PinReduzido />, 
         //deve-se passar como parametro a constante navigate 
         //para dar a classe PinReduzido acesso ao react navigation.
-        this.props._navigate('Informante')
+        this.props._navigate('Informante', {_selecionado: this.props.selecionado})
     }
     
     _expandir = () => { 
@@ -30,7 +30,7 @@ export default class PinReduzido extends React.Component{
                 <View //Faixa lateral colorida do PinReduzido
                     style={[
                         styles.faixa, 
-                        {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)}
+                        {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)[1]}
                     ]}
                 />
 
