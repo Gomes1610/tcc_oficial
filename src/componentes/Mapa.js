@@ -78,7 +78,8 @@ export default class Mapa extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://192.168.100.104:80/places')
+    // fetch('http://192.168.100.104:80/places') ////IP Gomes
+    fetch('http://192.168.0.6:80/places') 
     .then(response => response.json())
     .then(data => this.setState({ dados: data }) )
     .catch((error) => {

@@ -26,7 +26,8 @@ export default class LoginScreen extends React.Component{
     ////////////////////Consulta no banco se Usuário e Senha existem
 
     handlePress = async () => {
-        fetch('http://192.168.100.104:80/login', {
+        // fetch('http://192.168.100.104:80/login', { ////Descomentar para ip do Gomes
+        fetch('http://192.168.0.6:80/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

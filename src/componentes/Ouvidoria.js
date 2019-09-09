@@ -1,18 +1,86 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
 
 export default class Ouvidoria extends React.Component{
     constructor(){
         super()
         this.state = {
-            texto: ''
+            tempo : 0,
+            cap : 0, 
         }
     }
 
-    receber = () => {
-        const _selecionado = this.props.navigation.getParam('selecionado', 0)
+    receberCap = async () => {
+        const _selecionado = this.props.navigation.getParam('selecionado', 0) //Pin selecionado
+        // fetch('http://192.168.100.104:80/places/cap/'+ _selecionado, { ////IP Gomes
+        fetch('http://192.168.0.6:80/places/cap/'+ _selecionado, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({                
+                "capAtual" : this.state.cap,
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // var place = JSON.stringify(responseJson);
+                alert(responseJson.capAtual)
+                // if (place != '[]') {  
+                //     alert(place.nome+ ' atualizado!');
+                //     const { navigate } = this.props.navigation;
+                //     navigate('Mapa')
+                // }
+                // else {
+                //     alert('Erro.');
+                // }
+                this.props.navigation.replace('Mapa')
+            })
+            .catch((error) => {
+                alert('Erro' + error)
+                console.error(error);
+            });
+
+
         // _selecionado possui o id do pin selecionado para dar a informação. Necessário pra quando for atualizar.
-        alert(_selecionado) //lembrando que é o mesmo id do banco
+        // alert(_selecionado) //lembrando que é o mesmo id do banco
+    }
+
+    receberTempo = async () => {
+        const _selecionado = this.props.navigation.getParam('selecionado', 0) //Pin selecionado
+        // fetch('http://192.168.100.104/places/tempo/'+ _selecionado, { ////IP Gomes
+        fetch('http://192.168.0.6:80/places/tempo/'+ _selecionado, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({                
+                "tempoFila": this.state.tempo,
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                var place = JSON.stringify(responseJson);
+                alert(responseJson.capAtual)
+                // if (place != '[]') {  
+                //     alert(place.nome+ ' atualizado!');
+                //     const { navigate } = this.props.navigation;
+                //     navigate('Mapa')
+                // }
+                // else {
+                //     alert('Erro.');
+                // }
+                this.props.navigation.replace('Mapa')
+            })
+            .catch((error) => {
+                alert('Erro' + error)
+                console.error(error);
+            });
+
+
+        // _selecionado possui o id do pin selecionado para dar a informação. Necessário pra quando for atualizar.
+        // alert(_selecionado) //lembrando que é o mesmo id do banco
     }
 
 
@@ -30,15 +98,14 @@ export default class Ouvidoria extends React.Component{
                     >
                         <Text>Quantas pessoas estão aqui?</Text>
                         <TextInput
-                            onChangeText={(_texto) => this.setState({ texto: _texto })}
-                            value={this.state.texto}
                             style={styles.entradas}
                             placeholder={'Ex: 50'}
                             placeholderTextColor={'gray'}
+                            onChangeText={(text) => this.setState({cap: text})}
                         />
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={this.receber}
+                            onPress={this.receberCap}
                         >
                             <Text>Enviar</Text>
                         </TouchableOpacity>
@@ -53,15 +120,14 @@ export default class Ouvidoria extends React.Component{
                     >
                         <Text>Qual é o tempo da fila?</Text>
                         <TextInput
-                            onChangeText={(_texto) => this.setState({ texto: _texto })}
-                            value={this.state.texto}
+                            onChangeText={(text) => this.setState({ tempo: text })}
                             style={styles.entradas}
                             placeholder={'Ex: 45min'} //Precisamos pensar nessa entrada de dados, por hora só lide como uma entrada normal de números
                             placeholderTextColor={'gray'}
                         />
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={this.receber}
+                            onPress={this.receberTempo}
                         >
                             <Text>Enviar</Text>
                         </TouchableOpacity>
