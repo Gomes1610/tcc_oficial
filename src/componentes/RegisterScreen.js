@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Alert, View, TextInput, Text, TouchableOpacity } from 'react-native'
 
 // const URL_POST = "http://192.168.100.104:80/users" ////////URL da api para cadastrar usuário ////IP Gomes
-const URL_POST = "http://192.168.0.6:80/users" ////////URL da api para cadastrar usuário
+// const URL_POST = "http://192.168.0.6:80/users" ////////URL da api para cadastrar usuário
+const URL_POST = "https://blooming-fortress-34861.herokuapp.com/users";
 
 export default class RegisterScreen extends Component {
     constructor(props) {

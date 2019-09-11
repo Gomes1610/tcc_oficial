@@ -14,7 +14,8 @@ export default class Ouvidoria extends React.Component{
     receberCap = async () => {
         const _selecionado = this.props.navigation.getParam('selecionado', 0) //Pin selecionado
         // fetch('http://192.168.100.104:80/places/cap/'+ _selecionado, { ////IP Gomes
-        fetch('http://192.168.0.6:80/places/cap/'+ _selecionado, {
+        // fetch('http://192.168.0.6:80/places/cap/'+ _selecionado, { ////IP Gabriel
+        fetch('https://blooming-fortress-34861.herokuapp.com/places/cap/' + _selecionado, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +51,8 @@ export default class Ouvidoria extends React.Component{
     receberTempo = async () => {
         const _selecionado = this.props.navigation.getParam('selecionado', 0) //Pin selecionado
         // fetch('http://192.168.100.104/places/tempo/'+ _selecionado, { ////IP Gomes
-        fetch('http://192.168.0.6:80/places/tempo/'+ _selecionado, {
+        // fetch('http://192.168.0.6:80/places/tempo/'+ _selecionado, { //// IP Gabriel
+        fetch('https://blooming-fortress-34861.herokuapp.com/places/tempo' + _selecionado, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
