@@ -20,9 +20,9 @@ export default class Ouvidoria extends React.Component{
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({                
+            body: {                
                 "capAtual" : this.state.cap,
-            })
+            }
         })
             .then((response) => response.json())
             .then((responseJson) => {
