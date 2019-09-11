@@ -8,13 +8,13 @@ e sempre na posição 1 será retornado um código hexadecimal da determinada co
 
 export default function(capacidadeMaxima, capacidadeAtual){
     if(capacidadeAtual > ((2/3) * capacidadeMaxima)){
-        return [require('../Imagens/pinVerde.png'), '#32CD32'] //Verde - LimeGreen
+        return [require('../Imagens/pinVermelho.png'), '#FF0000'] //Vermelho
     }
     if(capacidadeAtual <= ((2/3) * capacidadeMaxima) && capacidadeAtual > ((1/3) * capacidadeMaxima)){
         return [require('../Imagens/pinAmarelo.png'), '#FFD700'] //Amarelo - Gold
     }
     if(capacidadeAtual <= ((1/3) * capacidadeMaxima)){
-        return [require('../Imagens/pinVermelho.png'), '#FF0000'] //Vermelho
+        return [require('../Imagens/pinVerde.png'), '#32CD32'] //Verde - LimeGreen
     }
 }
 

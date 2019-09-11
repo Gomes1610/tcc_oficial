@@ -17,6 +17,12 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
+  PinExpandido: {
+    screen: PinExpandido,
+    navigationOptions: {
+      header: null,
+    }
+  },
   Informante: {
     screen: Informante,
     navigationOptions: {
@@ -31,12 +37,6 @@ const MainNavigator = createStackNavigator({
   },
   Register: {
     screen: RegisterScreen,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  PinExpandido: {
-    screen: PinExpandido,
     navigationOptions: {
       header: null,
     }

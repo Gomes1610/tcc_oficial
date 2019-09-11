@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
+import { parse } from 'qs'
 
 export default class Ouvidoria extends React.Component{
     constructor(){
@@ -20,9 +21,9 @@ export default class Ouvidoria extends React.Component{
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: {                
+            body: JSON.stringify({                
                 "capAtual" : this.state.cap,
-            }
+            })
         })
             .then((response) => response.json())
             .then((responseJson) => {

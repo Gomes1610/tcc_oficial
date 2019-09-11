@@ -6,7 +6,26 @@ import GerenteCores from './GerenteCores'
 export default class PinReduzido extends React.Component{
     constructor(){
         super()
+        this.state = {
+            _capAtual: 0,
+            _tempoFila: 0,
+        }
     }
+
+    componentDidMount() {
+        // fetch('http://192.168.100.104:80/places') ////IP Gomes
+        // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
+        fetch('https://blooming-fortress-34861.herokuapp.com/places')
+        .then(response => response.json())
+        .then(data => this.setState({ 
+            _capAtual: data[0].capAtual,
+            _tempoFila: data[0].tempoFila, 
+        }))
+        .catch((error) => {
+            alert('Erro' + error)
+          console.error(error);
+        });
+      }
 
     _informar = () => {
         //Por essa tela, o PinReduzido, ser sobreposta à tela Mapa, 
@@ -18,7 +37,7 @@ export default class PinReduzido extends React.Component{
     }
     
     _expandir = () => { 
-        this.props._navigate('PinExpandido')
+        this.props._navigate('PinExpandido', {_selecionado: this.props.selecionado})
     }
 
     
@@ -38,8 +57,8 @@ export default class PinReduzido extends React.Component{
                     <Text style={styles.fonte_titulo}>{this.props.nome}</Text>
                 </View>
                 <View style={styles.view_mini_texto}>
-                    <Text style={styles.fonte_texto}>???</Text>
-                    <Text style={styles.fonte_texto}>???</Text>
+                    <Text style={styles.fonte_texto}>Número de pessoas: {this.state._capAtual}</Text>
+                    <Text style={styles.fonte_texto}>{this.state._tempoFila}</Text>
                 </View>
                 <View style={styles.view_mini_button}>
                 <TouchableOpacity

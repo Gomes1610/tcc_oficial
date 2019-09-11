@@ -4,7 +4,27 @@ import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
 export default class PinExpandido extends React.Component {
     constructor(){
         super()
+        this.state = {
+            _capAtual: 0,
+            _tempoFila: 0,
+        }
     }
+
+    componentDidMount() {
+        const selecionado = this.props.navigation.getParam('_selecionado', 0)
+        // fetch('http://192.168.100.104:80/places') ////IP Gomes
+        // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
+        fetch('https://blooming-fortress-34861.herokuapp.com/places')
+        .then(response => response.json())
+        .then(data => this.setState({ 
+            _capAtual: data[0].capAtual,
+            _tempoFila: data[0].tempoFila, 
+        }))
+        .catch((error) => {
+            alert('Erro' + error)
+          console.error(error);
+        });
+      }
 
     render(){
         return (
@@ -21,14 +41,14 @@ export default class PinExpandido extends React.Component {
                     </View>
                     <View style={styles.view_pin_cor} />
                     <View style={styles.view_pin_informacoes}>
-                        <Text style={styles.fonte_pin_informacao}>Pessoas no local: ???</Text>
-                        <Text style={styles.fonte_pin_informacao}>Tempo médio da fila: ???</Text>
+                        <Text style={styles.fonte_pin_informacao}>Pessoas no local: {this.state._capAtual}</Text>
+                        <Text style={styles.fonte_pin_informacao}>Tempo médio da fila: {this.state._tempoFila} minutos</Text>
                     </View>
                     <View style={styles.view_informacoes_gerais}>
-                        <Text style={styles.fonte_informacoes_gerais}>Endereço: ???</Text>
-                        <Text style={styles.fonte_informacoes_gerais}>Facebook: ???</Text>
-                        <Text style={styles.fonte_informacoes_gerais}>Telefone: ???</Text>
-                        <Text style={styles.fonte_informacoes_gerais}>Horários de Funcionamento: ???</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Endereço: R. Dr. Lobo Viana, 22 - Boqueirão, Santos - SP, 11045-120</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Facebook: https://www.facebook.com/SevenKingsBurger/</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Telefone: (13) 3307-3836</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Horário de Funcionamento: 13:00 - 00:00</Text>
                     </View>
                 </View>
             </ScrollView>
@@ -76,7 +96,7 @@ const styles = StyleSheet.create({
     },
     view_informacoes_gerais: {
         width: '100%',
-        height: 100,
+        height: 150,
         //backgroundColor: 'yellow',
     },
     fonte_informacoes_gerais: {
