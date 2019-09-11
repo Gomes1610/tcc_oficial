@@ -27,7 +27,7 @@ export default class Ouvidoria extends React.Component{
             .then((response) => response.json())
             .then((responseJson) => {
                 // var place = JSON.stringify(responseJson);
-                alert(responseJson.capAtual)
+                // alert(responseJson.capAtual)
                 // if (place != '[]') {  
                 //     alert(place.nome+ ' atualizado!');
                 //     const { navigate } = this.props.navigation;
@@ -63,8 +63,8 @@ export default class Ouvidoria extends React.Component{
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                var place = JSON.stringify(responseJson);
-                alert(responseJson.capAtual)
+                // var place = JSON.stringify(responseJson);
+                // alert(responseJson.capAtual)
                 // if (place != '[]') {  
                 //     alert(place.nome+ ' atualizado!');
                 //     const { navigate } = this.props.navigation;
