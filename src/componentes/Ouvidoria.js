@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, TouchableOpacity, ImageBackground, TextInput } 
 import { NavigationEvents } from 'react-navigation'
 import { parse } from 'qs'
 
+
+
 export default class Ouvidoria extends React.Component{
     constructor(){
         super()
@@ -11,6 +13,7 @@ export default class Ouvidoria extends React.Component{
             cap : 0, 
         }
     }
+/*
 
     receberCap = async () => {
         const _selecionado = this.props.navigation.getParam('selecionado', 0) //Pin selecionado
@@ -152,8 +155,9 @@ export default class Ouvidoria extends React.Component{
             </View>
         )
     }
+*/
 }
-
+/*
 const styles = StyleSheet.create({
     imagem_container: {
         width: '100%',
@@ -189,3 +193,5 @@ const styles = StyleSheet.create({
         height: 40,
     },
 })
+
+*/

@@ -5,8 +5,8 @@ export default class PinExpandido extends React.Component {
     constructor(){
         super()
         this.state = {
-            _capAtual: 0,
-            _tempoFila: 0,
+            _capAtual: null,
+            _tempoFila: null,
         }
     }
 
@@ -14,7 +14,7 @@ export default class PinExpandido extends React.Component {
         const selecionado = this.props.navigation.getParam('_selecionado', 0)
         // fetch('http://192.168.100.104:80/places') ////IP Gomes
         // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
-        fetch('https://blooming-fortress-34861.herokuapp.com/places')
+        fetch('https://blooming-fortress-34861.herokuapp.com/places/' + selecionado)
         .then(response => response.json())
         .then(data => this.setState({ 
             _capAtual: data[0].capAtual,

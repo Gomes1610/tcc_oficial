@@ -7,25 +7,23 @@ export default class PinReduzido extends React.Component{
     constructor(){
         super()
         this.state = {
-            _capAtual: 0,
-            _tempoFila: 0,
+            _capAtual: null,
+            _tempoFila: null,
         }
     }
 
     componentDidMount() {
-        // fetch('http://192.168.100.104:80/places') ////IP Gomes
-        // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
-        fetch('https://blooming-fortress-34861.herokuapp.com/places')
+        fetch('https://blooming-fortress-34861.herokuapp.com/places/' + this.props.selecionado)
         .then(response => response.json())
         .then(data => this.setState({ 
             _capAtual: data[0].capAtual,
-            _tempoFila: data[0].tempoFila, 
+            _tempoFila: data[0].tempoFila,
         }))
         .catch((error) => {
             alert('Erro' + error)
           console.error(error);
         });
-      }
+    }
 
     _informar = () => {
         //Por essa tela, o PinReduzido, ser sobreposta à tela Mapa, 
@@ -58,7 +56,7 @@ export default class PinReduzido extends React.Component{
                 </View>
                 <View style={styles.view_mini_texto}>
                     <Text style={styles.fonte_texto}>Número de pessoas: {this.state._capAtual}</Text>
-                    <Text style={styles.fonte_texto}>{this.state._tempoFila}</Text>
+                    <Text style={styles.fonte_texto}>Tempo de fila: {this.state._tempoFila}</Text>
                 </View>
                 <View style={styles.view_mini_button}>
                 <TouchableOpacity
@@ -71,7 +69,7 @@ export default class PinReduzido extends React.Component{
                     style={styles.mini_button_expandir}
                     onPress = {this._expandir}
                 >
-                    <Text style={styles.fonte_button_expandir}>Expandir</Text>
+                    <Text style={styles.fonte_button_expandir}>Mais</Text>
                 </TouchableOpacity>
                 </View>
             </View>
@@ -92,8 +90,8 @@ const styles = StyleSheet.create({
     },
     faixa: {
         position: 'absolute',
-        left: '80%',
-        width: '20%',
+        left: '85%',
+        width: '15%',
         height: '100%',
         borderTopRightRadius: 20,
         borderBottomRightRadius: 20,
@@ -123,7 +121,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '72%',
         left: '4%',
-        width: '76%',
+        width: '81%',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',

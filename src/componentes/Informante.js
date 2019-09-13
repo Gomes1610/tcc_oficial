@@ -3,8 +3,65 @@ Este código cria uma tela com diversos botões para que o usuário selecione
 qual informação quer passar para o aplicativo.
 */
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 
+export default class Informante extends React.Component{
+    constructor(){
+        super()
+    }
+
+    render(){
+
+        const {navigate} = this.props.navigation
+
+        return(
+            <View>
+                <ImageBackground
+                    style={styles.imagem_container}
+                    source={require('../Imagens/Luzes1.jpg')}
+                />
+                <View style={styles.container}>
+                    {/*
+                    <Text>Você ficará na fila?</Text>
+                    <TouchableOpacity></TouchableOpacity>
+                    <TouchableOpacity></TouchableOpacity>
+                    <Text>Qual é o tempo da fila?</Text>
+                    <TextInput />
+                    */}
+                </View>
+            </View>
+        )
+    }
+}
+
+const styles = StyleSheet.create({
+    imagem_container: {
+        width: '100%',
+        height: '100%',
+    },
+    container: {
+        position: 'absolute',
+        top: '10%',
+        left: '10%',
+        width: '80%',
+        height: '80%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        flex: 1,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '75%',
+        height: '25%',
+        borderRadius: 10,
+        backgroundColor: '#DDDDDD',
+    },
+})
+
+/*
 export default class Informante extends React.Component{
     constructor(){
         super()
@@ -66,3 +123,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#DDDDDD',
     },
 })
+*/
