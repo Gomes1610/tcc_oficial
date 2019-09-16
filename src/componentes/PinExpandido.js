@@ -5,21 +5,19 @@ export default class PinExpandido extends React.Component {
     constructor(){
         super()
         this.state = {
-            _capAtual: null,
-            _tempoFila: null,
+            place : [],
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         const selecionado = this.props.navigation.getParam('_selecionado', 0)
         // fetch('http://192.168.100.104:80/places') ////IP Gomes
         // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
         fetch('https://blooming-fortress-34861.herokuapp.com/places/' + selecionado)
         .then(response => response.json())
-        .then(data => this.setState({ 
-            _capAtual: data[0].capAtual,
-            _tempoFila: data[0].tempoFila, 
-        }))
+        .then((result) => {
+            this.setState({ place : result });
+        })
         .catch((error) => {
             alert('Erro' + error)
           console.error(error);
@@ -31,6 +29,7 @@ export default class PinExpandido extends React.Component {
             //Dentro da ScrollView não é possível definir estilizações de tamanho e posicionamento verticais - height, top, bottom e etc - com porcentagem, 
             //pois essa tag torna a tela teoricamente infinita na vertical, sendo, portanto, matematicamente impossível usar porcentagens.
             <ScrollView /*style={{backgroundColor: 'gray'}}*/> 
+                
                 <Image source={require('../Imagens/Imagens_PinExpandido/Seven_Kings_PinExpandido.jpg')}
                 style={styles.imagem_container}
                 />
@@ -41,14 +40,18 @@ export default class PinExpandido extends React.Component {
                     </View>
                     <View style={styles.view_pin_cor} />
                     <View style={styles.view_pin_informacoes}>
-                        <Text style={styles.fonte_pin_informacao}>Pessoas no local: {this.state._capAtual}</Text>
-                        <Text style={styles.fonte_pin_informacao}>Tempo médio da fila: {this.state._tempoFila} minutos</Text>
+                        <Text style={styles.fonte_pin_informacao}>Pessoas no local: {this.state.place.capAtual}</Text>
+                        <Text style={styles.fonte_pin_informacao}>Tempo médio da fila: {this.state.place.tempoFila} minutos</Text>
                     </View>
                     <View style={styles.view_informacoes_gerais}>
-                        <Text style={styles.fonte_informacoes_gerais}>Endereço: R. Dr. Lobo Viana, 22 - Boqueirão, Santos - SP, 11045-120</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Endereço: {this.state.place.endereco}</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Site: {this.state.place.site}</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Telefone: {this.state.place.telefone}</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Horário de Funcionamento: {this.state.place.hrAbertura} - {this.state.place.hrFechamento}</Text>
+                        {/* <Text style={styles.fonte_informacoes_gerais}>Endereço: R. Dr. Lobo Viana, 22 - Boqueirão, Santos - SP, 11045-120</Text>
                         <Text style={styles.fonte_informacoes_gerais}>Facebook: https://www.facebook.com/SevenKingsBurger/</Text>
                         <Text style={styles.fonte_informacoes_gerais}>Telefone: (13) 3307-3836</Text>
-                        <Text style={styles.fonte_informacoes_gerais}>Horário de Funcionamento: 13:00 - 00:00</Text>
+                        <Text style={styles.fonte_informacoes_gerais}>Horário de Funcionamento: 13:00 - 00:00</Text> */}
                     </View>
                 </View>
             </ScrollView>
