@@ -16,7 +16,7 @@ export default class PinExpandido extends React.Component {
         fetch('https://blooming-fortress-34861.herokuapp.com/places/' + selecionado)
         .then(response => response.json())
         .then((result) => {
-            this.setState({ place : result });
+            this.setState({ place : result[0] });
         })
         .catch((error) => {
             alert('Erro' + error)
@@ -35,8 +35,10 @@ export default class PinExpandido extends React.Component {
                 />
                 <View style={styles.container_informacoes}>
                     <View style={styles.view_titulo_subtitulo}>
-                        <Text style={styles.fonte_titulo}>Seven Kings Burgers N'Beers</Text>
-                        <Text style={styles.fonte_subtitulo}>Hamburgueria</Text>
+                        <Text style={styles.fonte_titulo}>{this.state.place.nome}</Text>
+                        <Text style={styles.fonte_subtitulo}>{this.state.place.tipo}</Text>
+                        {/* <Text style={styles.fonte_titulo}>Seven Kings Burgers N'Beers</Text>
+                        <Text style={styles.fonte_subtitulo}>Hamburgueria</Text> */}
                     </View>
                     <View style={styles.view_pin_cor} />
                     <View style={styles.view_pin_informacoes}>
