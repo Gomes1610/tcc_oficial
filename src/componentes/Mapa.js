@@ -5,59 +5,6 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native'
 import GerenteCores from './GerenteCores'
 import PinReduzido from './PinReduzido'
 
-/*
-data = [
-  {
-    _id: 1,
-    nome : "Seven Kings Burgers N'Beers",
-    latitude : -23.9649106,
-    longitude : -46.3222352,
-    capMax: 20,
-    capAtual: 4,
-  },
-  {
-    _id: 2,
-    nome : "mamão",
-    latitude : -23.9642757,
-    longitude : -46.3231924,
-    capMax: 20,
-    capAtual: 18,
-  },
-  {
-    _id: 3,
-    nome : "Panificadora Vila Rica",
-    latitude : -23.9647329,
-    longitude : -46.3238177,
-    capMax: 20,
-    capAtual: 12,
-  },
-  {
-    _id: 4,
-    nome : "Café Filomena",
-    latitude : -23.9645135,
-    longitude : -46.3214546,
-    capMax: 20,
-    capAtual: 12,
-  },
-  {
-    _id: 5,
-    nome : "Madero Container",
-    latitude : -23.9637359,
-    longitude : -46.3229151,
-    capMax: 20,
-    capAtual: 3,
-  },
-  {
-    _id: 6,
-    nome : "Giani Gastronomia",
-    latitude : -23.9646434,
-    longitude : -46.3206909,
-    capMax: 20,
-    capAtual: 19,
-  },
-]
-*/
-
 export default class Mapa extends React.Component {
   
   constructor(){

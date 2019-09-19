@@ -37,8 +37,6 @@ export default class PinExpandido extends React.Component {
                     <View style={styles.view_titulo_subtitulo}>
                         <Text style={styles.fonte_titulo}>{this.state.place.nome}</Text>
                         <Text style={styles.fonte_subtitulo}>{this.state.place.tipo}</Text>
-                        {/* <Text style={styles.fonte_titulo}>Seven Kings Burgers N'Beers</Text>
-                        <Text style={styles.fonte_subtitulo}>Hamburgueria</Text> */}
                     </View>
                     <View style={styles.view_pin_cor} />
                     <View style={styles.view_pin_informacoes}>
@@ -50,10 +48,6 @@ export default class PinExpandido extends React.Component {
                         <Text style={styles.fonte_informacoes_gerais}>Site: {this.state.place.site}</Text>
                         <Text style={styles.fonte_informacoes_gerais}>Telefone: {this.state.place.telefone}</Text>
                         <Text style={styles.fonte_informacoes_gerais}>Horário de Funcionamento: {this.state.place.hrAbertura} - {this.state.place.hrFechamento}</Text>
-                        {/* <Text style={styles.fonte_informacoes_gerais}>Endereço: R. Dr. Lobo Viana, 22 - Boqueirão, Santos - SP, 11045-120</Text>
-                        <Text style={styles.fonte_informacoes_gerais}>Facebook: https://www.facebook.com/SevenKingsBurger/</Text>
-                        <Text style={styles.fonte_informacoes_gerais}>Telefone: (13) 3307-3836</Text>
-                        <Text style={styles.fonte_informacoes_gerais}>Horário de Funcionamento: 13:00 - 00:00</Text> */}
                     </View>
                 </View>
             </ScrollView>

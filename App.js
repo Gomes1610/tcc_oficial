@@ -11,8 +11,8 @@ import Ouvidoria from './src/componentes/Ouvidoria'
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
-  Mapa: {
-    screen: Mapa,
+  Login: {
+    screen: LoginScreen,
     navigationOptions: {
       header: null,
     }
@@ -23,8 +23,8 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
-  Login: {
-    screen: LoginScreen,
+  Mapa: {
+    screen: Mapa,
     navigationOptions: {
       header: null,
     }
