@@ -4,11 +4,19 @@ qual informação quer passar para o aplicativo.
 */
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
+import QRCode from 'react-native-qrcode-svg'
+
 
 export default class Informante extends React.Component{
     constructor(){
         super()
+        this.state = {
+            qr_visivel: false
+        }
+    }
 
+    visibilidade = () => {
+        this.setState({qr_visivel: true})
     }
 
     render(){
@@ -28,7 +36,7 @@ export default class Informante extends React.Component{
                     <View style={styles.view_button_primeira_pergunta}>
                         <TouchableOpacity
                         style={styles.button_primeira_pergunta}
-                        //onPress={}
+                        onPress={this.visibilidade}
                         >
                             <Text>
                                 Sim
@@ -56,11 +64,38 @@ export default class Informante extends React.Component{
                         />
                     </View>
                     <View style={[styles.linha_horizontal, {top: '43%'}]} />
+                    <View style={styles.view_titulo_promocao}>
+                        <Text style={styles.fonte_promocao}>
+                            Promoção do dia:
+                        </Text>
+                    </View>
+                    <View style={styles.view_texto_promocao}>    
+                        <Text style={styles.fonte_promocao}>
+                            1 lata Coca-Cola
+                        </Text>
+                    </View>
+
+                    { //Controle da visibilidade QRCode
+                        this.state.qr_visivel &&
+                        (
+                        <View style={styles.QRCode_container}>
+                            <QRCode
+                                value="{
+                                        id: usuario, 
+                                        id: estabelecimento,
+                                        promocao: produto,
+                                       }"
+                                size={150}
+                            />
+                        </View>
+                        )
+                    }
                 </View>
             </View>
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     imagem_container: {
@@ -140,69 +175,33 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         height: 40,
     },
-})
-
-/*
-
-export default class Informante extends React.Component{
-    constructor(){
-        super()
-    }
-
-    render(){
-
-        const {navigate} = this.props.navigation
-
-        return(
-            <View>
-                <ImageBackground
-                    style={styles.imagem_container}
-                    source={require('../Imagens/Luzes1.jpg')}
-                />
-                <View style={styles.view_button}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => navigate('Ouvidoria', {status: 1, selecionado: this.props.navigation.getParam('_selecionado', 0)})}
-                    >
-                        <Text>Número de pessoas</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => navigate('Ouvidoria', {status: 2, selecionado: this.props.navigation.getParam('_selecionado', 0)})}
-                    >
-                        <Text>Tempo da fila</Text>
-                    </TouchableOpacity>
-                
-                </View>
-            </View>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    imagem_container: {
-        width: '100%',
-        height: '100%',
-    },
-    view_button: {
+    view_titulo_promocao: {
         position: 'absolute',
-        top: '25%',
+        top: '46.25%',
         left: '10%',
         width: '80%',
-        height: '50%',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        flex: 1,
-        justifyContent: 'space-around',
-        alignItems: 'center',
+        height: '5%',
+        //backgroundColor: 'red'
     },
-    button: {
+    view_texto_promocao: {
+        position: 'absolute',
+        top: '53.5%',
+        left: '10%',
+        width: '80%',
+        height: '5%',
         alignItems: 'center',
-        justifyContent: 'center',
-        width: '75%',
-        height: '25%',
-        borderRadius: 10,
-        backgroundColor: '#DDDDDD',
+        //backgroundColor: 'yellow'
+    },
+    fonte_promocao: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    QRCode_container: {
+        position: 'absolute',
+        top: '60%',
+        left: '10%',
+        width: '80%',
+        alignItems: 'center',
+        //backgroundColor: 'black'
     },
 })
-*/

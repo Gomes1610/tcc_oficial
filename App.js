@@ -11,14 +11,14 @@ import Ouvidoria from './src/componentes/Ouvidoria'
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
-  Login: {
-    screen: LoginScreen,
+  Informante: {
+    screen: Informante,
     navigationOptions: {
       header: null,
     }
   },
-  Informante: {
-    screen: Informante,
+  Login: {
+    screen: LoginScreen,
     navigationOptions: {
       header: null,
     }
