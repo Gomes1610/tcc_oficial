@@ -6,12 +6,13 @@ import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 
-
 export default class Informante extends React.Component{
     constructor(){
         super()
         this.state = {
-            qr_visivel: false
+            qr_visivel: false,
+            selectedHours: "00",
+            selectedMinutes: "00"
         }
     }
 
@@ -22,6 +23,7 @@ export default class Informante extends React.Component{
     render(){
 
         const {navigate} = this.props.navigation
+        const {selectedHours, selectedMinutes} = this.state
 
         return(
             <View>
@@ -54,16 +56,29 @@ export default class Informante extends React.Component{
                     <View style={[styles.linha_horizontal, {top: '20%'}]} />
                     <View style={styles.view_texto_segunda_pergunta}>
                         <Text style={styles.fonte_texto_segunda_pergunta}>Qual é o tempo da fila?</Text>
-                    </View>
+                    </View>                    
                     <View style={styles.view_entrada_segunda_pergunta}>
                         <TextInput
-                            placeholder={'Tempo'}
-                            placeholderTextColor={'gray'}
-                            //value={this.state._senha}
-                            style={styles.entrada_segunda_pergunta}
+                          style={styles.entrada_segunda_pergunta}
+                          keyboardType={"numeric"}
+                          placeholder="00"
+                          placeholderTextColor={'gray'}
+                          onChange={hour => {
+                            this.setState({ selectedHours: hour });
+                          }}
+                        />
+                        <Text style={styles.entrada_segunda_pergunta}>{":"}</Text>
+                        <TextInput
+                          style={styles.entrada_segunda_pergunta}
+                          keyboardType={"numeric"}
+                          placeholder="00"
+                          placeholderTextColor={'gray'}
+                          onChange={min => {
+                            this.setState({ selectedMinutes: min });
+                          }}
                         />
                     </View>
-                    <View style={[styles.linha_horizontal, {top: '43%'}]} />
+                    <View style={[styles.linha_horizontal, {top: '37%'}]} />
                     <View style={styles.view_titulo_promocao}>
                         <Text style={styles.fonte_promocao}>
                             Promoção do dia:
@@ -155,6 +170,7 @@ const styles = StyleSheet.create({
         left: '10%',
         width: '80%',
         height: '5%',
+        
     },
     fonte_texto_segunda_pergunta: {
         fontSize: 16,
@@ -165,19 +181,20 @@ const styles = StyleSheet.create({
         top: '28%',
         left: '10%',
         width: '80%',
+        flexDirection: 'row'
         //backgroundColor: 'green',
     },
     entrada_segunda_pergunta: {
-        margin: 10,
-        padding: 10,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: 'black',
+        marginHorizontal: 5,
+        alignContent: "center",
+        // borderRadius: 10,
+        // borderWidth: 1,
+        // borderColor: 'black',
         height: 40,
     },
     view_titulo_promocao: {
         position: 'absolute',
-        top: '46.25%',
+        top: '40.25%',
         left: '10%',
         width: '80%',
         height: '5%',
@@ -185,7 +202,7 @@ const styles = StyleSheet.create({
     },
     view_texto_promocao: {
         position: 'absolute',
-        top: '53.5%',
+        top: '45.5%',
         left: '10%',
         width: '80%',
         height: '5%',
