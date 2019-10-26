@@ -8,17 +8,16 @@ import RegisterScreen from './src/componentes/RegisterScreen'
 import Informante from './src/componentes/Informante'
 import Ouvidoria from './src/componentes/Ouvidoria'
 
-
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
-  Informante: {
-    screen: Informante,
+  Login: {
+    screen: LoginScreen,
     navigationOptions: {
       header: null,
     }
   },
-  Login: {
-    screen: LoginScreen,
+  Informante: {
+    screen: Informante,
     navigationOptions: {
       header: null,
     }

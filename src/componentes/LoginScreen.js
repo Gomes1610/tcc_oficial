@@ -1,16 +1,16 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Keyboard } from 'react-native'
 
-const cadastros = [
-    {
-        usuario: "Lucas",
-        senha: 123,
-    },
-    {
-        usuario: "Gabriel",
-        senha: 456,
-    },
-]
+// const cadastros = [
+//     {
+//         usuario: "Lucas",
+//         senha: 123,
+//     },
+//     {
+//         usuario: "Gabriel",
+//         senha: 456,
+//     },
+// ]
 
 
 export default class LoginScreen extends React.Component{
@@ -27,7 +27,7 @@ export default class LoginScreen extends React.Component{
 
     handlePress = async () => {
         // fetch('http://192.168.100.104:80/login', { ////Descomentar para ip do Gomes
-        // fetch('http://192.168.0.6:80/login', { //// IP Gabriel
+        // fetch('http://192.168.0.3:80/login', { //// IP Gabriel
         fetch('https://blooming-fortress-34861.herokuapp.com/login', {
             method: 'POST',
             headers: {
@@ -52,10 +52,8 @@ export default class LoginScreen extends React.Component{
                     alert('Usuário ou senhas inválido(s).');
                 }
             })
-            .then(() => {
-
-            })
             .catch((error) => {
+                alert(response);
                 alert('Erro' + error)
                 console.error(error);
             });

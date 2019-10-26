@@ -67,7 +67,11 @@ export default class Informante extends React.Component{
                             this.setState({ selectedHours: hour });
                           }}
                         />
-                        <Text style={styles.entrada_segunda_pergunta}>{":"}</Text>
+                        <Text 
+                            style={styles.entrada_segunda_pergunta}
+                            value=":"
+                        >                            
+                        </Text>
                         <TextInput
                           style={styles.entrada_segunda_pergunta}
                           keyboardType={"numeric"}
@@ -181,7 +185,8 @@ const styles = StyleSheet.create({
         top: '28%',
         left: '10%',
         width: '80%',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'center'
         //backgroundColor: 'green',
     },
     entrada_segunda_pergunta: {
