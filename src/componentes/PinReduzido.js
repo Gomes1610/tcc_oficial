@@ -56,7 +56,7 @@ export default class PinReduzido extends React.Component{
                 </View>
                 <View style={styles.view_mini_texto}>
                     <Text style={styles.fonte_texto}>Número de pessoas: {this.state._capAtual}</Text>
-                    <Text style={styles.fonte_texto}>Tempo de fila: {this.state._tempoFila}</Text>
+                    <Text style={styles.fonte_texto}>Tempo de fila: {this.state._tempoFila} minutos</Text>
                 </View>
                 <View style={styles.view_mini_button}>
                 <TouchableOpacity

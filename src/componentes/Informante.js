@@ -10,14 +10,41 @@ export default class Informante extends React.Component{
     constructor(){
         super()
         this.state = {
-            qr_visivel: false,
-            selectedHours: "00",
-            selectedMinutes: "00"
+            promocao: 'Nenhuma',
+            // qr_visivel: false,
+            permanencia: false,
+            tempo: '',
         }
     }
 
-    visibilidade = () => {
-        this.setState({qr_visivel: true})
+    // setQRCodeVisible = () => {
+    //     this.setState({qr_visivel: true})
+    // }
+
+    // setQRCodeInvisible = () => {
+    //     this.setState({qr_visivel: false})
+    // }
+
+    componentDidMount = () => {
+        const selecionado = this.props.navigation.getParam('_selecionado', 0)
+        // fetch('http://192.168.100.104:80/places') ////IP Gomes
+        // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
+        fetch('https://blooming-fortress-34861.herokuapp.com/discounts/places/' + selecionado)
+        .then(response => response.json())
+        .then((result) => {
+            // alert(String(result[0].description))
+            if(result == '[]'){
+                alert('Não há promoções!')
+                // this.setState({ promocao : String(result[0].description)});
+            }
+            else{
+                this.setState({ promocao : String(result[0].description)});
+            }
+        })
+        .catch((error) => {
+            alert('Erro' + error)
+          console.error(error);
+        });
     }
 
     render(){
@@ -38,7 +65,7 @@ export default class Informante extends React.Component{
                     <View style={styles.view_button_primeira_pergunta}>
                         <TouchableOpacity
                         style={styles.button_primeira_pergunta}
-                        onPress={this.visibilidade}
+                        onPress={ () => this.setState({permanencia: true})}
                         >
                             <Text>
                                 Sim
@@ -46,7 +73,7 @@ export default class Informante extends React.Component{
                         </TouchableOpacity>
                         <TouchableOpacity
                         style={styles.button_primeira_pergunta}
-                        //onPress={}
+                        onPress={ () => this.setState({permanencia: false})}
                         >
                             <Text>
                                 Não
@@ -61,18 +88,19 @@ export default class Informante extends React.Component{
                         <TextInput
                           style={styles.entrada_segunda_pergunta}
                           keyboardType={"numeric"}
-                          placeholder="00"
+                          placeholder="minutos"
                           placeholderTextColor={'gray'}
                           onChange={hour => {
                             this.setState({ selectedHours: hour });
                           }}
                         />
-                        <Text 
+                        {/* <Text 
                             style={styles.entrada_segunda_pergunta}
-                            value=":"
-                        >                            
-                        </Text>
-                        <TextInput
+                            
+                        >   
+                            min                         
+                        </Text> */}
+                        {/* <TextInput
                           style={styles.entrada_segunda_pergunta}
                           keyboardType={"numeric"}
                           placeholder="00"
@@ -80,7 +108,7 @@ export default class Informante extends React.Component{
                           onChange={min => {
                             this.setState({ selectedMinutes: min });
                           }}
-                        />
+                        /> */}
                     </View>
                     <View style={[styles.linha_horizontal, {top: '37%'}]} />
                     <View style={styles.view_titulo_promocao}>
@@ -88,22 +116,23 @@ export default class Informante extends React.Component{
                             Promoção do dia:
                         </Text>
                     </View>
+                    
                     <View style={styles.view_texto_promocao}>    
-                        <Text style={styles.fonte_promocao}>
-                            1 lata Coca-Cola
+                        <Text 
+                            style={styles.fonte_promocao}
+                        >
+                            {/* 1 lata Coca-Cola */}
+                            {this.state.promocao}
                         </Text>
                     </View>
+                    
 
                     { //Controle da visibilidade QRCode
-                        this.state.qr_visivel &&
+                        this.state.permanencia && this.state.promocao != 'Nenhuma' &&
                         (
                         <View style={styles.QRCode_container}>
                             <QRCode
-                                value="{
-                                        id: usuario, 
-                                        id: estabelecimento,
-                                        promocao: produto,
-                                       }"
+                                value={this.state.promocao}
                                 size={150}
                             />
                         </View>
@@ -192,6 +221,7 @@ const styles = StyleSheet.create({
     entrada_segunda_pergunta: {
         marginHorizontal: 5,
         alignContent: "center",
+        justifyContent: 'center',
         // borderRadius: 10,
         // borderWidth: 1,
         // borderColor: 'black',

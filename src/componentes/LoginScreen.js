@@ -74,7 +74,7 @@ export default class LoginScreen extends React.Component{
       }
     
     
-    ////////////////////Tratamento da manipulação da tela ao aparecer e desaparecer do traclado
+    ////////////////////Tratamento da manipulação da tela ao aparecer e desaparecer do teclado
     subir_View = () => {
         this.setState({altura_inferior: 72.5})
     }
@@ -101,22 +101,24 @@ export default class LoginScreen extends React.Component{
                             Login
                         </Text>
                     </View>
-                    <View style={styles.view_Entradas}>
-                        <TextInput //Entrada do Usuário
-                            onChangeText={(text) => this.setState({_usuario: text})}
-                            placeholder={'Usuário'}
-                            placeholderTextColor={'gray'}
-                            value={this.state._usuario}
-                            style={styles.entradas}
-                        />
-                        <TextInput //Entrada da Senha 
-                            onChangeText={(text) => this.setState({_senha: text})}
-                            placeholder={'Senha'}
-                            placeholderTextColor={'gray'}
-                            value={this.state._senha}
-                            style={styles.entradas}
-                        />
-                    </View>
+                            <View style={styles.view_Entradas}>
+                                <TextInput //Entrada do Usuário
+                                    onChangeText={(text) => this.setState({_usuario: text})}
+                                    placeholder={'Usuário'}
+                                    placeholderTextColor={'gray'}
+                                    value={this.state._usuario}
+                                    style={styles.entradas}
+                                />
+                                <TextInput //Entrada da Senha 
+                                    onChangeText={(text) => this.setState({_senha: text})}
+                                    placeholder={'Senha'}
+                                    placeholderTextColor={'gray'}
+                                    value={this.state._senha}
+                                    style={styles.entradas}
+                                    keyboardType='numeric'
+                                    secureTextEntry
+                                />
+                            </View>
                     <View style={styles.view_Botoes}>
                         <TouchableOpacity 
                         style={styles.botao_acessar}

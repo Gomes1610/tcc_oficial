@@ -22,7 +22,7 @@ export default class PinExpandido extends React.Component {
             alert('Erro' + error)
           console.error(error);
         });
-      }
+    }
 
     render(){
         const selecionado = this.props.navigation.getParam('_selecionado', 0)
