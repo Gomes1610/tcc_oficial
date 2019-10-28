@@ -5,7 +5,7 @@ export default class PinExpandido extends React.Component {
     constructor(){
         super()
         this.state = {
-            place : [],
+            place : []
         }
     }
 
@@ -25,12 +25,16 @@ export default class PinExpandido extends React.Component {
       }
 
     render(){
+        const selecionado = this.props.navigation.getParam('_selecionado', 0)
+
         return (
             //Dentro da ScrollView não é possível definir estilizações de tamanho e posicionamento verticais - height, top, bottom e etc - com porcentagem, 
             //pois essa tag torna a tela teoricamente infinita na vertical, sendo, portanto, matematicamente impossível usar porcentagens.
             <ScrollView /*style={{backgroundColor: 'gray'}}*/> 
                 
-                <Image source={require('../Imagens/Imagens_PinExpandido/Seven_Kings_PinExpandido.jpg')}
+                {/* <Image source={require('../Imagens/Imagens_PinExpandido/Seven_Kings_PinExpandido.jpg')} */}
+                {/* <Image source={{uri:'http://blooming-fortress-34861.herokuapp.com/places/imagem/'+ selecionado, width:32, height:32}} */}
+                <Image source={{uri:this.state.place.imagem}}
                 style={styles.imagem_container}
                 />
                 <View style={styles.container_informacoes}>
