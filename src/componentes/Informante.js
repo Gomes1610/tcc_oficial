@@ -13,7 +13,7 @@ export default class Informante extends React.Component{
             promocao: 'Nenhuma',
             // qr_visivel: false,
             permanencia: false,
-            tempo: '',
+            tempo: 0,
         }
     }
 
@@ -47,10 +47,73 @@ export default class Informante extends React.Component{
         });
     }
 
-    render(){
+    // btnSim = () =>{
+    //     if(this.state.tempo == 0){
+    //         alert("Por favor, informe o tempo para obter a promoção!")
+    //     }
+    //     else{
+    //         this.setState({permanencia: true})
+    //         this.sendInfo()
+    //     }
+    // }
 
-        const {navigate} = this.props.navigation
-        const {selectedHours, selectedMinutes} = this.state
+    // btnNao = () =>{
+    //     if(this.state.tempo == 0){
+    //         alert("Por favor, informe o tempo para obter a promoção!")
+    //     }
+    //     else{
+    //         this.setState({permanencia: false})
+    //         this.sendInfo()
+    //     }
+    // }
+
+    sendInfo = (permanenciaVal) => {
+        if(this.state.tempo == 0){
+            alert("Por favor, informe o tempo para obter a promoção!")
+        }
+        else
+        {
+
+            this.setState({permanencia:permanenciaVal})
+            const _selecionado = this.props.navigation.getParam('selecionado', 0) //Pin selecionado
+            const {permanencia, tempo} = this.state
+            // fetch('http://192.168.100.104:80/places/cap/'+ _selecionado, { ////IP Gomes
+            // fetch('http://192.168.0.6:80/places/cap/'+ _selecionado, { ////IP Gabriel
+            fetch('https://blooming-fortress-34861.herokuapp.com/places/info/' + _selecionado, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({                
+                    "permanencia" : permanencia,
+                    "tempo": tempo
+                })
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    // var place = JSON.stringify(responseJson);
+                    // alert(responseJson.capAtual)
+                    // if (place != '[]') {  
+                    //     alert(place.nome+ ' atualizado!');
+                    //     const { navigate } = this.props.navigation;
+                    //     navigate('Mapa')
+                    // }
+                    // else {
+                    //     alert('Erro.');
+                    // }
+                    this.props.navigation.replace('Mapa')
+                })
+                .catch((error) => {
+                    alert('Erro' + error)
+                    console.error(error);
+                });
+
+        }
+        // _selecionado possui o id do pin selecionado para dar a informação. Necessário pra quando for atualizar.
+        // alert(_selecionado) //lembrando que é o mesmo id do banco
+    }
+
+    render(){
 
         return(
             <View>
@@ -65,7 +128,7 @@ export default class Informante extends React.Component{
                     <View style={styles.view_button_primeira_pergunta}>
                         <TouchableOpacity
                         style={styles.button_primeira_pergunta}
-                        onPress={ () => this.setState({permanencia: true})}
+                        onPress={  this.sendInfo(true)}
                         >
                             <Text>
                                 Sim
@@ -73,7 +136,7 @@ export default class Informante extends React.Component{
                         </TouchableOpacity>
                         <TouchableOpacity
                         style={styles.button_primeira_pergunta}
-                        onPress={ () => this.setState({permanencia: false})}
+                        onPress={ this.sendInfo(false)}
                         >
                             <Text>
                                 Não
@@ -90,8 +153,8 @@ export default class Informante extends React.Component{
                           keyboardType={"numeric"}
                           placeholder="minutos"
                           placeholderTextColor={'gray'}
-                          onChange={hour => {
-                            this.setState({ selectedHours: hour });
+                          onChange={minutes => {
+                            this.setState({ tempo: minutes });
                           }}
                         />
                         {/* <Text 
