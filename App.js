@@ -5,19 +5,26 @@ import Mapa from './src/componentes/Mapa'
 import PinExpandido from './src/componentes/PinExpandido'
 import LoginScreen from './src/componentes/LoginScreen'
 import RegisterScreen from './src/componentes/RegisterScreen'
-import Informante from './src/componentes/Informante'
+import Informant from './src/componentes/Informant'
 import Ouvidoria from './src/componentes/Ouvidoria'
+import Info from './src/componentes/Info/index'
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
+  Info: {
+    screen: Info,
+    navigationOptions: {
+      header: null,
+    }
+  },
   Login: {
     screen: LoginScreen,
     navigationOptions: {
       header: null,
     }
   },
-  Informante: {
-    screen: Informante,
+  Informant: {
+    screen: Informant,
     navigationOptions: {
       header: null,
     }

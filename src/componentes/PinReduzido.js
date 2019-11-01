@@ -8,11 +8,11 @@ export default class PinReduzido extends React.Component{
         super()
         this.state = {
             _capAtual: null,
-            _tempoFila: null,
+            _tempoFila: 0,
         }
     }
 
-    componentDidMount() {
+    componentDidMount() { //Não esta sendo usado
         fetch('https://blooming-fortress-34861.herokuapp.com/places/' + this.props.selecionado)
         .then(response => response.json())
         .then(data => this.setState({ 
@@ -31,7 +31,7 @@ export default class PinReduzido extends React.Component{
         //Na tela Mapa, ao chamar a tag <PinReduzido />, 
         //deve-se passar como parametro a constante navigate 
         //para dar a classe PinReduzido acesso ao react navigation.
-        this.props._navigate('Informante', {_selecionado: this.props.selecionado})
+        this.props._navigate('Informant', {_selecionado: this.props.selecionado})
     }
     
     _expandir = () => { 
@@ -47,7 +47,7 @@ export default class PinReduzido extends React.Component{
                 <View //Faixa lateral colorida do PinReduzido
                     style={[
                         styles.faixa, 
-                        {backgroundColor: GerenteCores(this.props.capMax,this.props.capAtual)[1]}
+                        {backgroundColor: GerenteCores(this.props.tempoFila)[1]}
                     ]}
                 />
 
@@ -55,8 +55,7 @@ export default class PinReduzido extends React.Component{
                     <Text style={styles.fonte_titulo}>{this.props.nome}</Text>
                 </View>
                 <View style={styles.view_mini_texto}>
-                    <Text style={styles.fonte_texto}>Número de pessoas: {this.state._capAtual}</Text>
-                    <Text style={styles.fonte_texto}>Tempo de fila: {this.state._tempoFila} minutos</Text>
+                    <Text style={styles.fonte_texto}>Tempo de fila: {this.props.tempoFila} minutos</Text>
                 </View>
                 <View style={styles.view_mini_button}>
                 <TouchableOpacity
@@ -76,6 +75,8 @@ export default class PinReduzido extends React.Component{
         )
     }
 }
+
+// <Text style={styles.fonte_texto}>Número de pessoas: {this.state._capAtual}</Text>
 
 const styles = StyleSheet.create({
     mini_container: {

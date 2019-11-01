@@ -18,6 +18,7 @@ export default class Mapa extends React.Component {
         _nome: '',
         _capMax: 0,
         _capAtual: 0,
+        _tempoFila: 0,
         _id: 0,
       },
       dados: [],
@@ -57,6 +58,7 @@ export default class Mapa extends React.Component {
             _nome: dados[i].nome,
             _capMax: dados[i].capMax,
             _capAtual: dados[i].capAtual,
+            _tempoFila: dados[i].tempoFila,
             _id: key,
           }
         })
@@ -82,7 +84,7 @@ export default class Mapa extends React.Component {
         onPress = {(event) => this.ShowHidePinReduzido(event)}
         >
           <Text> {this.state.dados[i].nome} </Text>
-          <Image source = {GerenteCores(this.state.dados[i].capMax,this.state.dados[i].capAtual)[0]} />
+          <Image source = {GerenteCores(this.state.dados[i].tempoFila)[0]} />
         </MapView.Marker>
         )
        
@@ -113,6 +115,7 @@ export default class Mapa extends React.Component {
             nome={this.state.pinSelect._nome}
             capMax={this.state.pinSelect._capMax}
             capAtual={this.state.pinSelect._capAtual}
+            tempoFila={this.state.pinSelect._tempoFila}
             selecionado={this.state.pinSelect._id}
             _navigate={navigate}
           />

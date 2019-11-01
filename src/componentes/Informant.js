@@ -6,24 +6,39 @@ import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 
+function Node(key, value){
+    this.name = key;
+    this.value = value;
+    this.next = null;
+}
+
+function normalStringify (jsObject) {
+    // this will generate an error when trying to serialize
+    // an object with cyclic references
+    return JSON.stringify(jsObject);
+}
+
 export default class Informante extends React.Component{
     constructor(){
         super()
         this.state = {
             promocao: 'Nenhuma',
-            // qr_visivel: false,
-            permanencia: false,
-            tempo: 0,
+            qr_visivel: false,
+            _permanencia: false,
+            _tempo: 0,
         }
     }
 
-    // setQRCodeVisible = () => {
-    //     this.setState({qr_visivel: true})
-    // }
+    /*
+     setQRCodeVisible = () => {
+         this.setState({qr_visivel: true})
+     }
+     */
+    
+    
+     
+    
 
-    // setQRCodeInvisible = () => {
-    //     this.setState({qr_visivel: false})
-    // }
 
     componentDidMount = () => {
         const selecionado = this.props.navigation.getParam('_selecionado', 0)
@@ -38,7 +53,8 @@ export default class Informante extends React.Component{
                 // this.setState({ promocao : String(result[0].description)});
             }
             else{
-                this.setState({ promocao : String(result[0].description)});
+                // comentado pro desenvolvimento
+                //this.setState({ promocao : String(result[0].description)});
             }
         })
         .catch((error) => {
@@ -46,6 +62,7 @@ export default class Informante extends React.Component{
           console.error(error);
         });
     }
+    
 
     // btnSim = () =>{
     //     if(this.state.tempo == 0){
@@ -67,55 +84,70 @@ export default class Informante extends React.Component{
     //     }
     // }
 
-    sendInfo = (permanenciaVal) => {
-        if(this.state.tempo == 0){
+
+    
+    sendInfo = () => {
+        if(this.state._permanencia == false){
+            alert("Por favor, informe se permanecerá na fila")
+        }
+        if(this.state._tempo == 0){
             alert("Por favor, informe o tempo para obter a promoção!")
         }
         else
-        {
+        {   
+            this.setState({qr_visivel: true})            
+            
+            // const selecionado = this.props.navigation.getParam('_selecionado', 0) //Pin selecionado
 
-            this.setState({permanencia:permanenciaVal})
-            const _selecionado = this.props.navigation.getParam('selecionado', 0) //Pin selecionado
-            const {permanencia, tempo} = this.state
-            // fetch('http://192.168.100.104:80/places/cap/'+ _selecionado, { ////IP Gomes
-            // fetch('http://192.168.0.6:80/places/cap/'+ _selecionado, { ////IP Gabriel
-            fetch('https://blooming-fortress-34861.herokuapp.com/places/info/' + _selecionado, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({                
-                    "permanencia" : permanencia,
-                    "tempo": tempo
-                })
-            })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    // var place = JSON.stringify(responseJson);
-                    // alert(responseJson.capAtual)
-                    // if (place != '[]') {  
-                    //     alert(place.nome+ ' atualizado!');
-                    //     const { navigate } = this.props.navigation;
-                    //     navigate('Mapa')
-                    // }
-                    // else {
-                    //     alert('Erro.');
-                    // }
-                    this.props.navigation.replace('Mapa')
-                })
-                .catch((error) => {
-                    alert('Erro' + error)
-                    console.error(error);
-                });
+            // var n1 = new Node("permanencia", this.state._permanencia);
+            // var n2 = new Node("tempo", this.state._tempo);
+            // // set up some cyclic references
+            // n1.next = n2;
+            
+            // // serialize
+            // var sData = normalStringify(n1);
+            // //fetch('http://192.168.100.104:80/places/cap/'+ _selecionado, { ////IP Gomes
+            // //fetch('http://192.168.0.6:80/places/cap/'+ _selecionado, { ////IP Gabriel
+            // fetch('https://blooming-fortress-34861.herokuapp.com/places/info/' + selecionado, {
+            //     method: 'PUT',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: sData
+            //     // JSON.stringify({                
+            //     //     permanencia : this.state._permanencia,
+            //     //     tempo: this.state._tempo
+            //     // })
+            // })
+            //     //.then((response) => response.json())
+            //     .then((responseJson) => {
+            //     //     // var place = JSON.stringify(responseJson);
+            //     //     // alert(responseJson.capAtual)
+            //     //     // if (place != '[]') {  
+            //     //     // //     alert(place.nome+ ' atualizado!');
+            //     //     //     const { navigate } = this.props.navigation;
+            //     //     //     navigate('Mapa')
+            //     //     // }
+            //     //     // else {
+            //     //     //     alert('Erro.');
+            //     //     // }
+            //     //     // this.props.navigation.replace('Mapa')
+            //         alert("Obrigado!")
+            // })
+            //     .catch((error) => {
+            //         alert('Erro' + error)
+            //         console.error(error);
+            //     });
+                
 
         }
         // _selecionado possui o id do pin selecionado para dar a informação. Necessário pra quando for atualizar.
         // alert(_selecionado) //lembrando que é o mesmo id do banco
     }
 
-    render(){
+    render() {
 
-        return(
+        return (
             <View>
                 <ImageBackground
                     style={styles.imagem_container}
@@ -127,78 +159,71 @@ export default class Informante extends React.Component{
                     </View>
                     <View style={styles.view_button_primeira_pergunta}>
                         <TouchableOpacity
-                        style={styles.button_primeira_pergunta}
-                        onPress={  this.sendInfo(true)}
+                            style={styles.button_primeira_pergunta}
+                            onPress={() => this.setState({ _permanencia: true })}
+
                         >
                             <Text>
                                 Sim
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                        style={styles.button_primeira_pergunta}
-                        onPress={ this.sendInfo(false)}
+                            style={styles.button_primeira_pergunta}
+                            onPress={() => this.props.navigation.replace('Mapa')}
                         >
                             <Text>
                                 Não
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.linha_horizontal, {top: '20%'}]} />
+                    <View style={[styles.linha_horizontal, { top: '20%' }]} />
                     <View style={styles.view_texto_segunda_pergunta}>
                         <Text style={styles.fonte_texto_segunda_pergunta}>Qual é o tempo da fila?</Text>
-                    </View>                    
+                    </View>
                     <View style={styles.view_entrada_segunda_pergunta}>
                         <TextInput
-                          style={styles.entrada_segunda_pergunta}
-                          keyboardType={"numeric"}
-                          placeholder="minutos"
-                          placeholderTextColor={'gray'}
-                          onChange={minutes => {
-                            this.setState({ tempo: minutes });
-                          }}
-                        />
-                        {/* <Text 
                             style={styles.entrada_segunda_pergunta}
-                            
-                        >   
-                            min                         
-                        </Text> */}
-                        {/* <TextInput
-                          style={styles.entrada_segunda_pergunta}
-                          keyboardType={"numeric"}
-                          placeholder="00"
-                          placeholderTextColor={'gray'}
-                          onChange={min => {
-                            this.setState({ selectedMinutes: min });
-                          }}
-                        /> */}
+                            keyboardType={"numeric"}
+                            placeholder="minutos"
+                            placeholderTextColor={'gray'}
+                            onChange={(minutes) => {
+                                this.setState({ _tempo: minutes })
+                            }}
+                        />
+                        <TouchableOpacity
+                            style={styles.button_primeira_pergunta}
+                            onPress={() => this.sendInfo()}
+
+                        >
+                            <Text>OK</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={[styles.linha_horizontal, {top: '37%'}]} />
+                    <View style={[styles.linha_horizontal, { top: '37%' }]} />
                     <View style={styles.view_titulo_promocao}>
                         <Text style={styles.fonte_promocao}>
                             Promoção do dia:
                         </Text>
                     </View>
-                    
-                    <View style={styles.view_texto_promocao}>    
-                        <Text 
+
+                    <View style={styles.view_texto_promocao}>
+                        <Text
                             style={styles.fonte_promocao}
                         >
-                            {/* 1 lata Coca-Cola */}
+
                             {this.state.promocao}
                         </Text>
                     </View>
-                    
+
 
                     { //Controle da visibilidade QRCode
-                        this.state.permanencia && this.state.promocao != 'Nenhuma' &&
+                        this.state.qr_visivel &&
                         (
-                        <View style={styles.QRCode_container}>
-                            <QRCode
-                                value={this.state.promocao}
-                                size={150}
-                            />
-                        </View>
+                            <View style={styles.QRCode_container}>
+                                <QRCode
+                                    value={this.state.promocao}
+                                    size={150}
+                                />
+                            </View>
                         )
                     }
                 </View>
@@ -266,13 +291,13 @@ const styles = StyleSheet.create({
         left: '10%',
         width: '80%',
         height: '5%',
-        
+
     },
     fonte_texto_segunda_pergunta: {
         fontSize: 16,
         fontWeight: 'bold',
     },
-    view_entrada_segunda_pergunta:{
+    view_entrada_segunda_pergunta: {
         position: 'absolute',
         top: '28%',
         left: '10%',
@@ -285,10 +310,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         alignContent: "center",
         justifyContent: 'center',
-        // borderRadius: 10,
-        // borderWidth: 1,
-        // borderColor: 'black',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: 'black',
+        padding: 10,
         height: 40,
+        width: 100,
     },
     view_titulo_promocao: {
         position: 'absolute',
