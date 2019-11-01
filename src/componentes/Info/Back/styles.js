@@ -1,23 +1,13 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
         height: 100,
         width: 325,
-        paddingVertical: 15,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: 25,
         backgroundColor: 'white',
-    },
-    font: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
     },
     button: {
         backgroundColor: '#3e92a1',
@@ -27,9 +17,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10
     },
-    font_button: {
+    font: {
         color: 'white',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
     },
 });

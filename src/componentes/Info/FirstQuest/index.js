@@ -4,11 +4,8 @@ import styles from './styles';
 
 export default class FirstQuest extends Component {
 
-  constructor(){
-    super()
-    this.state = {
-        _permanencia: false
-    }
+  enviarPermanencia = (dados) => {
+    this.props.enviarDadosPermanencia(dados)
   }
 
   render() {
@@ -18,7 +15,7 @@ export default class FirstQuest extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
           style={styles.button}
-          onPress={() => this.setState({ _permanencia: true })}
+          onPress={() => this.enviarPermanencia(true)}
           >
             <Text style={styles.font_button}>
               Sim
@@ -26,7 +23,7 @@ export default class FirstQuest extends Component {
           </TouchableOpacity>
           <TouchableOpacity
           style={styles.button}
-          onPress={() => this.props.navigation.replace('Mapa')}
+          onPress={() => this.enviarPermanencia(false)}
           >
             <Text style={styles.font_button}>
               Não

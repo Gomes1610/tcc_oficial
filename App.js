@@ -10,6 +10,7 @@ import Ouvidoria from './src/componentes/Ouvidoria'
 import Info from './src/componentes/Info/index'
 import InfoScreen from './src/componentes/InfoScreen'
 
+
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
   Login: {
@@ -18,14 +19,14 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
-  InfoScreen: {
-    screen: InfoScreen,
+  Info: {
+    screen: Info,
     navigationOptions: {
       header: null,
     }
   },
-  Info: {
-    screen: Info,
+  InfoScreen: {
+    screen: InfoScreen,
     navigationOptions: {
       header: null,
     }

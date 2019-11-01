@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         height: 100,
         width: 325,
-        paddingTop: 15,
+        paddingVertical: 15,
+        justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: 25,
     },
@@ -15,7 +16,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row',
-        paddingTop: 15,
         justifyContent: 'space-around',
         width: '100%',
     },
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#3e92a1',
         width: 100,
+        height: 35,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10

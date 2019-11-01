@@ -10,10 +10,12 @@ export default class Promotion extends Component {
       <View style={styles.container}>
         <Text style={styles.font}>Promoção do dia:</Text>
         <Text style={styles.font_promotion}>Nenhuma</Text>
+        <View style={styles.qrcodeContainer}>
         <QRCode
           value={'Nenhuma'}
-          size={150}
+          size={160}
         />
+        </View>
       </View>
     );
   }
