@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native'
 
 import GerenteCores from './GerenteCores'
 import PinReduzido from './PinReduzido'
+import PinReduz from './PinReduz/index'
 
 export default class Mapa extends React.Component {
   
@@ -107,8 +108,9 @@ export default class Mapa extends React.Component {
           pin
         }    
         </MapView>
-          
-      
+
+        {/*<PinReduz />*/}
+
         { //Pin Reduzido e manipulação Show/Hide
           this.state.status && (
           <PinReduzido 
