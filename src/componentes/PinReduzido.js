@@ -32,6 +32,7 @@ export default class PinReduzido extends React.Component{
         //deve-se passar como parametro a constante navigate 
         //para dar a classe PinReduzido acesso ao react navigation.
         this.props._navigate('Info', {_selecionado: this.props.selecionado})
+        // this.props._replace('Info', {_selecionado: this.props.selecionado})
     }
     
     _expandir = () => { 

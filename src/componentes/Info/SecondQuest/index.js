@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import styles from './styles';
 
 export default class SecondQuest extends Component {
@@ -8,8 +8,9 @@ enviarTempo = (dados) => {
   this.props.enviarDadosTempo(dados)
 }
 
-enviarComando = () => {
+enviarComando = () => {  
   this.props.acionarSubida()
+  ToastAndroid.show('Obrigado! Curta sua promo! :D', ToastAndroid.SHORT);
 }
 
   render() {

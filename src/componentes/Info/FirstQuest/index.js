@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import styles from './styles';
 
 export default class FirstQuest extends Component {
 
   enviarPermanencia = (dados) => {
     this.props.enviarDadosPermanencia(dados)
+    ToastAndroid.show('Hi I am Simple Toast', ToastAndroid.SHORT);
   }
 
   render() {

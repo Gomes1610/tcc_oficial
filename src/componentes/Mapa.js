@@ -26,9 +26,7 @@ export default class Mapa extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // fetch('http://192.168.100.104:80/places') ////IP Gomes
-    // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
+  getPlaces = async () => {
     fetch('https://blooming-fortress-34861.herokuapp.com/places')
     .then(response => response.json())
     .then(data => this.setState({ dados: data }) )
@@ -36,6 +34,22 @@ export default class Mapa extends React.Component {
         alert('Erro' + error)
       console.error(error);
     });
+  }
+
+  componentDidMount() {
+    // fetch('http://192.168.100.104:80/places') ////IP Gomes
+    // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
+    
+    this.getPlaces()
+
+    this.willFocus = this.props.navigation.addListener('willFocus', () => {
+      this.setState({status:false})
+      this.getPlaces()
+    });
+  }
+
+  componentWillUnmount(){
+    this.willFocus.remove()
   }
   
   ShowHidePinReduzido(event){
@@ -68,7 +82,7 @@ export default class Mapa extends React.Component {
   }
 
   render(){
-    const {navigate} = this.props.navigation
+    const {navigate, replace} = this.props.navigation
 
     const pin = new Array()
 
@@ -120,6 +134,7 @@ export default class Mapa extends React.Component {
             tempoFila={this.state.pinSelect._tempoFila}
             selecionado={this.state.pinSelect._id}
             _navigate={navigate}
+            // _replace={replace}
           />
           )
         } 
