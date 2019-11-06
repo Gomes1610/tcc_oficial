@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
+import GerenteCores from './GerenteCores'
 
 export default class PinExpandido extends React.Component {
     constructor(){
@@ -26,6 +27,7 @@ export default class PinExpandido extends React.Component {
 
     render(){
         const selecionado = this.props.navigation.getParam('_selecionado', 0)
+        const {tempoFila} = this.state.place
 
         return (
             //Dentro da ScrollView não é possível definir estilizações de tamanho e posicionamento verticais - height, top, bottom e etc - com porcentagem, 

@@ -18,7 +18,7 @@ export default class PinReduz extends Component {
           <ConfirmTime />
           <BottomButton />
         </View>
-        <SideColor />
+        <SideColor tempoFila={this.props._tempoFila}/>
       </View>
     );
   }
