@@ -8,12 +8,12 @@ export default class Header extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Icon 
-        name='map-marker'
-        type='material-community'
-        size={21}
+        <Icon
+          name='map-marker'
+          type='material-community'
+          size={21}
         />
-        <Text style={styles.text}>Titulo</Text>
+        <Text style={styles.text}>{this.props.nome}</Text>
       </View>
     );
   }

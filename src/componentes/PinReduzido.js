@@ -27,7 +27,7 @@ export default class PinReduzido extends React.Component{
 
     _informar = () => {
         //Por essa tela, o PinReduzido, ser sobreposta à tela Mapa, 
-        //a forma de usar o react navigation para ele é diferente.
+        //a forma de usar o react navigation para ela é diferente.
         //Na tela Mapa, ao chamar a tag <PinReduzido />, 
         //deve-se passar como parametro a constante navigate 
         //para dar a classe PinReduzido acesso ao react navigation.

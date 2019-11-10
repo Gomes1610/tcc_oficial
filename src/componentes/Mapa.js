@@ -7,19 +7,19 @@ import PinReduzido from './PinReduzido'
 import PinReduz from './PinReduz/index'
 
 export default class Mapa extends React.Component {
-  
-  constructor(){
+
+  constructor() {
     super()
     this.ShowHidePinReduzido = this.ShowHidePinReduzido.bind(this)
     this.GerentePinReduzido = this.GerentePinReduzido.bind(this)
 
     this.state = {
-      status:false,
+      status: false,
       pinSelect: {
-        _nome: '',
-        _capMax: 0,
-        _capAtual: 0,
-        _tempoFila: 0,
+        _nome: '', //Descontinuado
+        _capMax: 0, //Descontinuado
+        _capAtual: 0, //Descontinuado
+        _tempoFila: 0, //Descontinuado
         _id: 0,
       },
       dados: [],
@@ -28,52 +28,52 @@ export default class Mapa extends React.Component {
 
   getPlaces = async () => {
     fetch('https://blooming-fortress-34861.herokuapp.com/places')
-    .then(response => response.json())
-    .then(data => this.setState({ dados: data }) )
-    .catch((error) => {
+      .then(response => response.json())
+      .then(data => this.setState({ dados: data }))
+      .catch((error) => {
         alert('Erro' + error)
-      console.error(error);
-    });
+        console.error(error);
+      });
   }
 
   componentDidMount() {
     // fetch('http://192.168.100.104:80/places') ////IP Gomes
     // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
-    
+
     this.getPlaces()
 
     this.willFocus = this.props.navigation.addListener('willFocus', () => {
-      this.setState({status:false})
+      this.setState({ status: false })
       this.getPlaces()
     });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.willFocus.remove()
   }
-  
-  ShowHidePinReduzido(event){
+
+  ShowHidePinReduzido(event) {
     const key = event._targetInst.return.key;
 
-    if(this.state.status){
-      this.setState({status:false})
-    } 
-    else{
-      this.setState({status:true})
+    if (this.state.status) {
+      this.setState({ status: false })
+    }
+    else {
+      this.setState({ status: true })
       this.GerentePinReduzido(key)
     }
   }
 
   GerentePinReduzido = (key) => {
     const dados = this.state.dados;
-    for(var i = 0; i < dados.length; i++){
-      if(dados[i]._id == key){
+    for (var i = 0; i < dados.length; i++) {
+      if (dados[i]._id == key) {
         this.setState({
           pinSelect: {
-            _nome: dados[i].nome,
-            _capMax: dados[i].capMax,
-            _capAtual: dados[i].capAtual,
-            _tempoFila: dados[i].tempoFila,
+            _nome: dados[i].nome, //Descontinuado
+            _capMax: dados[i].capMax, //Descontinuado
+            _capAtual: dados[i].capAtual, //Descontinuado
+            _tempoFila: dados[i].tempoFila, //Descontinuado
             _id: key,
           }
         })
@@ -81,33 +81,32 @@ export default class Mapa extends React.Component {
     }
   }
 
-  render(){
-    const {navigate, replace} = this.props.navigation
+  render() {
+    const { navigate, replace } = this.props.navigation
 
     const pin = new Array()
 
-    for(var i = 0; i < this.state.dados.length; i++)
-    {
+    for (var i = 0; i < this.state.dados.length; i++) {
       pin.push(
         <MapView.Marker
-        key = {this.state.dados[i]._id}
-        coordinate = {{
-          latitude: this.state.dados[i].latitude,
-          longitude: this.state.dados[i].longitude,
-        }}
-        style = {styles.markerContainer}
-        onPress = {(event) => this.ShowHidePinReduzido(event)}
+          key={this.state.dados[i]._id}
+          coordinate={{
+            latitude: this.state.dados[i].latitude,
+            longitude: this.state.dados[i].longitude,
+          }}
+          style={styles.markerContainer}
+          onPress={(event) => this.ShowHidePinReduzido(event)}
         >
           <Text> {this.state.dados[i].nome} </Text>
-          <Image source = {GerenteCores(this.state.dados[i].tempoFila)[0]} />
+          <Image source={GerenteCores(this.state.dados[i].tempoFila)[0]} />
         </MapView.Marker>
-        )
-       
-    }
-  
+      )
 
-    return(
-      <View style = {styles.container}>
+    }
+
+
+    return (
+      <View style={styles.container}>
         <MapView
           style={styles.mapstyle}
           initialRegion={{
@@ -117,15 +116,25 @@ export default class Mapa extends React.Component {
             longitudeDelta: 0.0031,
           }}
           customMapStyle={EstiloMapaCustomizado}
-        >  
-        { //Todos os pins/marcadores
-          pin
-        }    
+        >
+          { //Todos os pins/marcadores
+            pin
+          }
         </MapView>
 
-        {/*<PinReduz />*/}
+        {
+          this.state.status &&
+          (
+            <PinReduz
+              selecionado={this.state.pinSelect._id}
+              _navigate={navigate}
+            //_replace={replace}
+            />
+          )
+        }
 
-        { //Pin Reduzido e manipulação Show/Hide
+
+        {/* //Pin Reduzido e manipulação Show/Hide
           this.state.status && (
           <PinReduzido 
             nome={this.state.pinSelect._nome}
@@ -137,7 +146,7 @@ export default class Mapa extends React.Component {
             // _replace={replace}
           />
           )
-        } 
+        */ }
       </View>
     )
   }

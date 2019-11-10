@@ -9,12 +9,14 @@ export default class Promotion extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.font}>Promoção do dia:</Text>
-        <Text style={styles.font_promotion}>Nenhuma</Text>
+        <Text style={styles.font_promotion}>{this.props.description}</Text>
         <View style={styles.qrcodeContainer}>
-        <QRCode
-          value={'Nenhuma'}
-          size={160}
-        />
+          {this.props.status && (
+            <QRCode
+              value={this.props.description}
+              size={160}
+            />
+          )}
         </View>
       </View>
     );

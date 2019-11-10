@@ -7,7 +7,7 @@ export default class SideColor extends Component {
 
   render() {
     return (
-      <View style={[styles.container, {backgroundColor: GerenteCores(this.props.tempoFila)[1]}]} />
+      <View style={[styles.container,{backgroundColor: GerenteCores(this.props.tempoFila)[1]}]} />
     );
   }
 }

@@ -14,26 +14,26 @@ import PinReduz from './src/componentes/PinReduz/index'
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
-  Login: {
-    screen: LoginScreen,
-    navigationOptions: {
-      header: null,
-    }
-  },
   Mapa: {
     screen: Mapa,
     navigationOptions: {
       header: null,
     }
   },
-  PinReduz: {
-    screen: PinReduz,
+  Info: {
+    screen: Info,
     navigationOptions: {
       header: null,
     }
   },
-  Info: {
-    screen: Info,
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  PinReduz: {
+    screen: PinReduz,
     navigationOptions: {
       header: null,
     }

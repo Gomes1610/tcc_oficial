@@ -7,15 +7,19 @@ e sempre na posição 1 será retornado um código hexadecimal da determinada co
 
 
 export default function(_tempoFila){
-    if(_tempoFila >= 45){
-        return [require('../Imagens/pinVermelho.png'), '#FF0000'] //Vermelho
+    if(_tempoFila >= 0 && _tempoFila < 15){
+        return [require('../Imagens/pinVerde.png'), '#32CD32'] //Verde - LimeGreen
     }
     if(_tempoFila >= 15 && _tempoFila < 45){
         return [require('../Imagens/pinAmarelo.png'), '#FFD700'] //Amarelo - Gold
     }
-    if(_tempoFila < 15){
-        return [require('../Imagens/pinVerde.png'), '#32CD32'] //Verde - LimeGreen
+    if(_tempoFila >= 45){
+        return [require('../Imagens/pinVermelho.png'), '#FF0000'] //Vermelho
     }
+    if(_tempoFila == -1){
+        return [require('../Imagens/pinCinza.png'), 'white'] //Imagem de carregamento
+    }
+    
 }
 
 /*

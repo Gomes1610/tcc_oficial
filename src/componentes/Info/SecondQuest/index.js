@@ -21,7 +21,7 @@ enviarComando = () => {
           <TextInput
             style={styles.text_input}
             keyboardType={"numeric"}
-            placeholder="Ex: 25"
+            placeholder="minutos"
             placeholderTextColor={'#3e92a1'}
             onChangeText={(dados) => this.enviarTempo(dados)}
           />

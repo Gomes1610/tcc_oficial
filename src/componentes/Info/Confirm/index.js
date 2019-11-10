@@ -15,7 +15,7 @@ export default class Confirm extends Component {
             type='material-community'
             size={30}
           />
-          <Text style={styles.font_tempo}>{/*Colocar tempo atua do pin selecionado aqui*/} 50 minutos</Text>
+          <Text style={styles.font_tempo}>{( this.props._tempoAtual == -1 ? '...' : this.props._tempoAtual + ' minutos')}</Text>
         </View>
         <View style={styles.iconContainer}>
           <TouchableOpacity>

@@ -1,5 +1,15 @@
 import React from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Keyboard } from 'react-native'
+import {
+    Text,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    TextInput,
+    ImageBackground,
+    Image,
+    Keyboard,
+    KeyboardAvoidingView
+} from 'react-native'
 
 // const cadastros = [
 //     {
@@ -13,12 +23,12 @@ import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, I
 // ]
 
 
-export default class LoginScreen extends React.Component{
-    constructor(){
+export default class LoginScreen extends React.Component {
+    constructor() {
         super()
         this.state = {
-            _usuario : '',
-            _senha :  '',
+            _usuario: '',
+            _senha: '',
             altura_inferior: 0,
         }
     }
@@ -44,7 +54,7 @@ export default class LoginScreen extends React.Component{
                 if (user != '[]') {
                     const { navigate } = this.props.navigation;
                     navigate('Mapa')
-                    
+
                     ////TEM QUE USAR ESSE MAS DEVEMOS AJUSTAR OS EVENTOS DO TECLADO
                     // this.props.navigation.replace('Mapa') 
                 }
@@ -58,6 +68,8 @@ export default class LoginScreen extends React.Component{
                 console.error(error);
             });
     }
+
+    /*
 
     componentDidMount () {
         
@@ -82,10 +94,13 @@ export default class LoginScreen extends React.Component{
         this.setState({altura_inferior: 0})
     }
 
+    */
+
     ////////////////////Renderização
-    render(){
-        return(
-            <View style={{ position: 'relative', bottom: this.state.altura_inferior,}}
+    render() {
+        return (
+            <KeyboardAvoidingView behavior="padding" enabled>
+            <View style={{ position: 'relative', bottom: this.state.altura_inferior, }}
             >
                 <ImageBackground
                     source={require('../Imagens/Restaurante3.jpg')}
@@ -93,44 +108,44 @@ export default class LoginScreen extends React.Component{
                 />
                 <View style={styles.container}>
                     <View style={styles.view_Login}>
-                        <Image 
+                        <Image
                             source={require('../Imagens/Icone_Avatar.png')}
-                            style={{ width: 50, height: 50 }} 
+                            style={{ width: 50, height: 50 }}
                         />
                         <Text style={styles.login}>
                             Login
                         </Text>
                     </View>
-                            <View style={styles.view_Entradas}>
-                                <TextInput //Entrada do Usuário
-                                    onChangeText={(text) => this.setState({_usuario: text})}
-                                    placeholder={'Usuário'}
-                                    placeholderTextColor={'gray'}
-                                    value={this.state._usuario}
-                                    style={styles.entradas}
-                                />
-                                <TextInput //Entrada da Senha 
-                                    onChangeText={(text) => this.setState({_senha: text})}
-                                    placeholder={'Senha'}
-                                    placeholderTextColor={'gray'}
-                                    value={this.state._senha}
-                                    style={styles.entradas}
-                                    keyboardType='numeric'
-                                    secureTextEntry
-                                />
-                            </View>
+                    <View style={styles.view_Entradas}>
+                        <TextInput //Entrada do Usuário
+                            onChangeText={(text) => this.setState({ _usuario: text })}
+                            placeholder={'Usuário'}
+                            placeholderTextColor={'gray'}
+                            value={this.state._usuario}
+                            style={styles.entradas}
+                        />
+                        <TextInput //Entrada da Senha 
+                            onChangeText={(text) => this.setState({ _senha: text })}
+                            placeholder={'Senha'}
+                            placeholderTextColor={'gray'}
+                            value={this.state._senha}
+                            style={styles.entradas}
+                            keyboardType='numeric'
+                            secureTextEntry
+                        />
+                    </View>
                     <View style={styles.view_Botoes}>
-                        <TouchableOpacity 
-                        style={styles.botao_acessar}
-                        onPress={this.handlePress}
+                        <TouchableOpacity
+                            style={styles.botao_acessar}
+                            onPress={this.handlePress}
                         >
                             <Text>
                                 Acessar
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity 
-                        style={styles.botao_cadastrar}
-                        onPress={() => this.props.navigation.navigate('Register')}
+                        <TouchableOpacity
+                            style={styles.botao_cadastrar}
+                            onPress={() => this.props.navigation.navigate('Register')}
                         >
                             <Text>
                                 Cadastrar
@@ -139,6 +154,7 @@ export default class LoginScreen extends React.Component{
                     </View>
                 </View>
             </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -150,7 +166,8 @@ const styles = StyleSheet.create({
         top: '25%',
         left: '10%',
         width: '80%',
-        height: '50%',
+        height: 320,
+        //height: '50%',
         backgroundColor: 'white',
         borderRadius: 10,
 
