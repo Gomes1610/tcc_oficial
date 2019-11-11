@@ -36,37 +36,44 @@ export default class LoginScreen extends React.Component {
     ////////////////////Consulta no banco se Usuário e Senha existem
 
     handlePress = async () => {
-        // fetch('http://192.168.100.104:80/login', { ////Descomentar para ip do Gomes
-        // fetch('http://192.168.0.3:80/login', { //// IP Gabriel
-        fetch('https://blooming-fortress-34861.herokuapp.com/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "login": this.state._usuario,
-                "password": this.state._senha
-            })
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                var user = JSON.stringify(responseJson)
-                if (user != '[]') {
-                    const { navigate } = this.props.navigation;
-                    navigate('Mapa')
 
-                    ////TEM QUE USAR ESSE MAS DEVEMOS AJUSTAR OS EVENTOS DO TECLADO
-                    // this.props.navigation.replace('Mapa') 
-                }
-                else {
-                    alert('Usuário ou senhas inválido(s).');
-                }
+        if (this.state._usuario == 'Gerente' && this.state._senha == '123') {
+            const { navigate } = this.props.navigation;
+            navigate('ScanScreen')
+        } else {
+
+            // fetch('http://192.168.100.104:80/login', { ////Descomentar para ip do Gomes
+            // fetch('http://192.168.0.3:80/login', { //// IP Gabriel
+            fetch('https://blooming-fortress-34861.herokuapp.com/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "login": this.state._usuario,
+                    "password": this.state._senha
+                })
             })
-            .catch((error) => {
-                alert(response);
-                alert('Erro' + error)
-                console.error(error);
-            });
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    var user = JSON.stringify(responseJson)
+                    if (user != '[]') {
+                        const { navigate } = this.props.navigation;
+                        navigate('Mapa')
+
+                        ////TEM QUE USAR ESSE MAS DEVEMOS AJUSTAR OS EVENTOS DO TECLADO
+                        // this.props.navigation.replace('Mapa') 
+                    }
+                    else {
+                        alert('Usuário ou senhas inválido(s).');
+                    }
+                })
+                .catch((error) => {
+                    alert(response);
+                    alert('Erro' + error)
+                    console.error(error);
+                });
+        }
     }
 
     /*

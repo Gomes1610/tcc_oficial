@@ -10,10 +10,23 @@ import Ouvidoria from './src/componentes/Ouvidoria'
 import Info from './src/componentes/Info/index'
 import InfoScreen from './src/componentes/InfoScreen'
 import PinReduz from './src/componentes/PinReduz/index'
+import ScanScreen from './src/componentes/ScanScreen/index'
 
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  ScanScreen: {
+    screen: ScanScreen,
+    navigationOptions: {
+      header: null,
+    }
+  },
   Mapa: {
     screen: Mapa,
     navigationOptions: {
@@ -22,12 +35,6 @@ const MainNavigator = createStackNavigator({
   },
   Info: {
     screen: Info,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  Login: {
-    screen: LoginScreen,
     navigationOptions: {
       header: null,
     }
