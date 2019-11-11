@@ -11,10 +11,35 @@ import Info from './src/componentes/Info/index'
 import InfoScreen from './src/componentes/InfoScreen'
 import PinReduz from './src/componentes/PinReduz/index'
 import ScanScreen from './src/componentes/ScanScreen/index'
+import PinExpand from './src/componentes/PinExpand/index'
 
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
+  PinExpand: {
+    screen: PinExpand,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  Mapa: {
+    screen: Mapa,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  PinExpandido: {
+    screen: PinExpandido,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  Register: {
+    screen: RegisterScreen,
+    navigationOptions: {
+      header: null,
+    }
+  },
   Login: {
     screen: LoginScreen,
     navigationOptions: {
@@ -23,12 +48,6 @@ const MainNavigator = createStackNavigator({
   },
   ScanScreen: {
     screen: ScanScreen,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  Mapa: {
-    screen: Mapa,
     navigationOptions: {
       header: null,
     }
@@ -53,18 +72,6 @@ const MainNavigator = createStackNavigator({
   },
   Informant: {
     screen: Informant,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  PinExpandido: {
-    screen: PinExpandido,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  Register: {
-    screen: RegisterScreen,
     navigationOptions: {
       header: null,
     }

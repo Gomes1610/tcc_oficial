@@ -107,60 +107,60 @@ export default class LoginScreen extends React.Component {
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" enabled>
-            <View style={{ position: 'relative', bottom: this.state.altura_inferior, }}
-            >
-                <ImageBackground
-                    source={require('../Imagens/Restaurante3.jpg')}
-                    style={{ width: '100%', height: '100%', opacity: 0.80 }}
-                />
-                <View style={styles.container}>
-                    <View style={styles.view_Login}>
-                        <Image
-                            source={require('../Imagens/Icone_Avatar.png')}
-                            style={{ width: 50, height: 50 }}
-                        />
-                        <Text style={styles.login}>
-                            Login
+                <View style={{ position: 'relative', bottom: this.state.altura_inferior, }}
+                >
+                    <ImageBackground
+                        source={require('../Imagens/Restaurante3.jpg')}
+                        style={{ width: '100%', height: '100%', opacity: 0.80 }}
+                    />
+                    <View style={styles.container}>
+                        <View style={styles.view_Login}>
+                            <Image
+                                source={require('../Imagens/Icone_Avatar.png')}
+                                style={{ width: 50, height: 50 }}
+                            />
+                            <Text style={styles.login}>
+                                Login
                         </Text>
-                    </View>
-                    <View style={styles.view_Entradas}>
-                        <TextInput //Entrada do Usuário
-                            onChangeText={(text) => this.setState({ _usuario: text })}
-                            placeholder={'Usuário'}
-                            placeholderTextColor={'gray'}
-                            value={this.state._usuario}
-                            style={styles.entradas}
-                        />
-                        <TextInput //Entrada da Senha 
-                            onChangeText={(text) => this.setState({ _senha: text })}
-                            placeholder={'Senha'}
-                            placeholderTextColor={'gray'}
-                            value={this.state._senha}
-                            style={styles.entradas}
-                            keyboardType='numeric'
-                            secureTextEntry
-                        />
-                    </View>
-                    <View style={styles.view_Botoes}>
-                        <TouchableOpacity
-                            style={styles.botao_acessar}
-                            onPress={this.handlePress}
-                        >
-                            <Text>
-                                Acessar
+                        </View>
+                        <View style={styles.view_Entradas}>
+                            <TextInput //Entrada do Usuário
+                                onChangeText={(text) => this.setState({ _usuario: text })}
+                                placeholder={'Usuário'}
+                                placeholderTextColor={'gray'}
+                                value={this.state._usuario}
+                                style={styles.entradas}
+                            />
+                            <TextInput //Entrada da Senha 
+                                onChangeText={(text) => this.setState({ _senha: text })}
+                                placeholder={'Senha'}
+                                placeholderTextColor={'gray'}
+                                value={this.state._senha}
+                                style={styles.entradas}
+                                keyboardType='numeric'
+                                secureTextEntry
+                            />
+                        </View>
+                        <View style={styles.view_Botoes}>
+                            <TouchableOpacity
+                                style={styles.botao_acessar}
+                                onPress={this.handlePress}
+                            >
+                                <Text>
+                                    Acessar
                             </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.botao_cadastrar}
-                            onPress={() => this.props.navigation.navigate('Register')}
-                        >
-                            <Text>
-                                Cadastrar
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.botao_cadastrar}
+                                onPress={() => this.props.navigation.navigate('Register')}
+                            >
+                                <Text>
+                                    Cadastrar
                             </Text>
-                        </TouchableOpacity>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
             </KeyboardAvoidingView>
         )
     }

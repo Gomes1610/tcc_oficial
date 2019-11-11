@@ -56,6 +56,7 @@ export default class Info extends React.Component{
         const _selecionado = this.props.navigation.getParam('_selecionado', 0)
         // fetch('http://192.168.100.104/places/tempo/'+ _selecionado, { ////IP Gomes
         // fetch('http://192.168.0.6:80/places/tempo/'+ _selecionado, { //// IP Gabriel
+        
         fetch('https://blooming-fortress-34861.herokuapp.com/places/tempo/' + _selecionado, {
             method: 'PUT',
             headers: {
