@@ -13,8 +13,7 @@ export default class Confirm extends Component {
           <Icon
             name='map-marker'
             type='material-community'
-            size={30}
-            onPress={() => this.props.acionarLike()}
+            size={30}            
           />
           <Text style={styles.font_tempo}>{( this.props._tempoAtual == -1 ? '...' : this.props._tempoAtual + ' minutos')}</Text>
         </View>
@@ -26,6 +25,7 @@ export default class Confirm extends Component {
               size={30}
               reverse
               color='#3e92a1'
+              onPress={() => this.props.acionarLike()}
             />
           </TouchableOpacity>
           <TouchableOpacity>
@@ -35,6 +35,7 @@ export default class Confirm extends Component {
               size={30}
               reverse
               color='#3e92a1'
+              onPress={() => this.props.acionarTela()}
             />
           </TouchableOpacity>
         </View>

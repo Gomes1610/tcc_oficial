@@ -17,6 +17,8 @@ export default class Info extends React.Component{
            tempoAtual: -1,
            tempoNovo: 0,
            qrCode_state: false,
+           firstQuest_state:false,
+           secondQuest_state: false,
            _description: '...',
         }
     }
@@ -122,6 +124,19 @@ export default class Info extends React.Component{
             qrCode_state: true
         })
     }
+    
+    
+    liberarFirstQuest = () => {
+        this.setState({
+            firstQuest_state: true
+        })
+    }
+
+    liberarSecondQuest = () => {
+        this.setState({
+            secondQuest_state: true
+        })
+    }
 
     render(){
         return(
@@ -129,9 +144,13 @@ export default class Info extends React.Component{
             <ScrollView>
                 <View style={styles.container}>
                     <Title />
-                    <FirstQuest enviarDadosPermanencia = {this.receberPermanencia}/>
-                    <Confirm _tempoAtual = {this.state.tempoAtual} acionarLike = {this.subirLike}/>
+                    <FirstQuest enviarDadosPermanencia = {this.receberPermanencia} acionarTela= {this.liberarFirstQuest}/>
+                    {this.state.firstQuest_state && (
+                    <Confirm _tempoAtual = {this.state.tempoAtual} acionarLike = {this.subirLike} acionarTela= {this.liberarSecondQuest}/>
+                    )}
+                    {this.state.secondQuest_state && (
                     <SecondQuest enviarDadosTempo = {this.receberTempoNovo} acionarSubida = {this.subirTempo} />
+                    )}
                     <Promotion description = {this.state._description} status = {this.state.qrCode_state}/>
                     <Voltar enviarBack = {this.receberBack}/>
                 </View>

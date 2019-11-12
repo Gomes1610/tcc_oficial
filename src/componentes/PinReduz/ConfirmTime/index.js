@@ -16,14 +16,14 @@ export default class ConfirmTime extends Component {
           />
           <Text style={styles.font}>{this.props.like}</Text>
         </View>
-        <View style={styles.negative}>
+        {/* <View style={styles.negative}>
           <Icon
             name='thumbs-down'
             type='font-awesome'
             size={20}
           />
           <Text style={styles.font}></Text>
-        </View>
+        </View> */}
       </View>
     );
   }
