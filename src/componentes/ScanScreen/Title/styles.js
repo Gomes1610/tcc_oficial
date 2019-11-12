@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         width: 300,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
+        //backgroundColor: 'white',
         borderRadius: 20,
     },
     font: {
