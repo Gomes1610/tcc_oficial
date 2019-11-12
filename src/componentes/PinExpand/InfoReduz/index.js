@@ -12,8 +12,8 @@ export default class InfoReduz extends React.Component {
                         type='material-community'
                         size={21}
                     />
-                    <Text style={styles.font}>Tempo de fila: </Text>
-                    <Text style={styles.font}>{this.props.dados.tempoFila} minutos</Text>
+                    <Text style={styles.fontNegrito}>Tempo de fila: </Text>
+                    <Text style={styles.font}>{this.props.tempoFila} minutos</Text>
                 </View>
                 <View style={styles.confirmContainer}>
                     <View style={styles.positive}>
@@ -22,16 +22,16 @@ export default class InfoReduz extends React.Component {
                             type='font-awesome'
                             size={20}
                         />
-                        <Text style={styles.font}>5</Text>
+                        <Text style={styles.font}>{this.props.like}</Text>
                     </View>
-                    <View style={styles.negative}>
+                    {/* <View style={styles.negative}>
                         <Icon
                             name='thumbs-down'
                             type='font-awesome'
                             size={20}
                         />
                         <Text style={styles.font}>1</Text>
-                    </View>
+                    </View> */}
                 </View>
             </View>
         )
@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: 35,
 
+    },
+    fontNegrito: {
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     negative: {
         flexDirection: 'row',

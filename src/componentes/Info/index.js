@@ -42,10 +42,12 @@ export default class Info extends React.Component{
         fetch('https://blooming-fortress-34861.herokuapp.com/discounts/places/' + _selecionado)
         .then(response => response.json())
         .then((data) => {
-            if(data == '[]'){
+            if(data.length == 0){
                 alert('Não há promoções!')
             }
-            else{
+            else if (data.length > 0 && data[0].description == ''){
+                alert('Não há promoções!')
+            } else {
                 this.setState({ _description: data[0].description })
             }
 
@@ -116,7 +118,7 @@ export default class Info extends React.Component{
     }
 
     receberBack = () => {
-        this.props.navigation.replace('Mapa')
+        this.props.navigation.navigate('Mapa')
     }
 
     liberarQrcode = () =>{

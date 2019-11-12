@@ -24,6 +24,7 @@ export default class Mapa extends React.Component {
         _id: 0,
       },
       dados: [],
+      statusCor: true,
     }
   }
 
@@ -40,17 +41,34 @@ export default class Mapa extends React.Component {
   componentDidMount() {
     // fetch('http://192.168.100.104:80/places') ////IP Gomes
     // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
-
-    this.getPlaces()
-
-    this.willFocus = this.props.navigation.addListener('willFocus', () => {
+    //this.getPlaces()
+    
+    const mapWillFocus = this.props.navigation.addListener('willFocus', () => {
+      //alert('Estou focado')
       this.setState({ status: false })
       this.getPlaces()
+      this.refresh1()
     });
+    this.timerRefresh1 = setInterval(()=> this.refresh1(), 30000)
   }
 
   componentWillUnmount() {
-    this.willFocus.remove()
+    mapWillFocus.remove()
+    //alert('morri')
+  }
+
+  refresh1 = () => {
+    this.setState({
+      statusCor: false
+    })
+    this.timerRefresh2 = setInterval(()=> this.refresh2(), 1)
+  }
+
+  refresh2 = () => {
+    this.setState({
+      statusCor: true
+    })
+    clearInterval(this.timerRefresh2)
   }
 
   ShowHidePinReduzido(event) {
@@ -99,7 +117,11 @@ export default class Mapa extends React.Component {
           onPress={(event) => this.ShowHidePinReduzido(event)}
         >
           <Text> {this.state.dados[i].nome} </Text>
+          
+          { this.state.statusCor && (
           <ColorManager id = {this.state.dados[i]._id}/>
+          )}
+
           {/* <Image source={GerenteCores(this.state.dados[i].tempoFila)[0]} /> */}
         </MapView.Marker>
       )

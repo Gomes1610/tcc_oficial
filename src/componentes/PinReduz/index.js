@@ -53,7 +53,7 @@ goInfo = () => {
 }
 
 goExpand = () => { 
-  this.props._navigate('PinExpandido', {_selecionado: this.props.selecionado})
+  this.props._navigate('PinExpand', {_selecionado: this.props.selecionado})
 }
 
 
