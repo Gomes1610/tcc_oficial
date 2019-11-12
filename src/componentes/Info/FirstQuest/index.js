@@ -6,7 +6,8 @@ export default class FirstQuest extends Component {
 
   enviarPermanencia = (dados) => {
     this.props.enviarDadosPermanencia(dados)
-    ToastAndroid.show('Hi I am Simple Toast', ToastAndroid.SHORT);
+    this.props.acionarTela()
+    // ToastAndroid.show('Hi I am Simple Toast', ToastAndroid.SHORT);
   }
 
   render() {
