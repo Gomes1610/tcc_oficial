@@ -14,6 +14,7 @@ export default class Confirm extends Component {
             name='map-marker'
             type='material-community'
             size={30}
+            onPress={() => this.props.acionarLike()}
           />
           <Text style={styles.font_tempo}>{( this.props._tempoAtual == -1 ? '...' : this.props._tempoAtual + ' minutos')}</Text>
         </View>

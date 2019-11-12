@@ -13,6 +13,7 @@ export default class Info extends React.Component{
         super()
         this.state = {
            permanencia: false,
+           idtempoAtual: "",
            tempoAtual: -1,
            tempoNovo: 0,
            qrCode_state: false,
@@ -24,10 +25,11 @@ export default class Info extends React.Component{
     componentDidMount() {
         //////////////////Obter tempoAtual
         const _selecionado = this.props.navigation.getParam('_selecionado', 0)
-        fetch('https://blooming-fortress-34861.herokuapp.com/places/' + _selecionado)
+        fetch('https://blooming-fortress-34861.herokuapp.com/times/' + _selecionado)
         .then(response => response.json())
         .then(data => this.setState({ 
-            tempoAtual: data[0].tempoFila,
+            idtempoAtual: data._id,
+            tempoAtual: data.tempo
         }))
         .catch((error) => {
             alert('Erro' + error)
@@ -52,18 +54,43 @@ export default class Info extends React.Component{
         });
     }
 
-    subirTempo = async () => {
+    subirLike = async () => {
         const _selecionado = this.props.navigation.getParam('_selecionado', 0)
         // fetch('http://192.168.100.104/places/tempo/'+ _selecionado, { ////IP Gomes
         // fetch('http://192.168.0.6:80/places/tempo/'+ _selecionado, { //// IP Gabriel
         
-        fetch('https://blooming-fortress-34861.herokuapp.com/places/tempo/' + _selecionado, {
+        fetch('https://blooming-fortress-34861.herokuapp.com/times/' + this.state.idtempoAtual, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "tempoFila": this.state.tempoNovo,
+                "tempo": this.state.tempoNovo,
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //alert("subiu")
+                this.liberarQrcode()
+            })
+            .catch((error) => {
+                alert('Erro' + error)
+                console.error(error);
+            });
+    }
+
+    subirTempo = async () => {
+        const _selecionado = this.props.navigation.getParam('_selecionado', 0)
+        // fetch('http://192.168.100.104/places/tempo/'+ _selecionado, { ////IP Gomes
+        // fetch('http://192.168.0.6:80/places/tempo/'+ _selecionado, { //// IP Gabriel
+        
+        fetch('https://blooming-fortress-34861.herokuapp.com/times/' + _selecionado, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "tempo": this.state.tempoNovo,
             })
         })
             .then((response) => response.json())
@@ -103,7 +130,7 @@ export default class Info extends React.Component{
                 <View style={styles.container}>
                     <Title />
                     <FirstQuest enviarDadosPermanencia = {this.receberPermanencia}/>
-                    <Confirm _tempoAtual = {this.state.tempoAtual}/>
+                    <Confirm _tempoAtual = {this.state.tempoAtual} acionarLike = {this.subirLike}/>
                     <SecondQuest enviarDadosTempo = {this.receberTempoNovo} acionarSubida = {this.subirTempo} />
                     <Promotion description = {this.state._description} status = {this.state.qrCode_state}/>
                     <Voltar enviarBack = {this.receberBack}/>
