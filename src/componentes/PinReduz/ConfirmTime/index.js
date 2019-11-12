@@ -14,7 +14,7 @@ export default class ConfirmTime extends Component {
             type='font-awesome'
             size={20}
           />
-          <Text style={styles.font}>5</Text>
+          <Text style={styles.font}>{this.props.like}</Text>
         </View>
         <View style={styles.negative}>
           <Icon
@@ -22,7 +22,7 @@ export default class ConfirmTime extends Component {
             type='font-awesome'
             size={20}
           />
-          <Text style={styles.font}>1</Text>
+          <Text style={styles.font}></Text>
         </View>
       </View>
     );

@@ -5,6 +5,7 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native'
 import GerenteCores from './GerenteCores'
 import PinReduzido from './PinReduzido'
 import PinReduz from './PinReduz/index'
+import ColorManager from './ColorManager'
 
 export default class Mapa extends React.Component {
 
@@ -98,7 +99,8 @@ export default class Mapa extends React.Component {
           onPress={(event) => this.ShowHidePinReduzido(event)}
         >
           <Text> {this.state.dados[i].nome} </Text>
-          <Image source={GerenteCores(this.state.dados[i].tempoFila)[0]} />
+          <ColorManager id = {this.state.dados[i]._id}/>
+          {/* <Image source={GerenteCores(this.state.dados[i].tempoFila)[0]} /> */}
         </MapView.Marker>
       )
 

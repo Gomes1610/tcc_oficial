@@ -13,6 +13,7 @@ export default class PinReduz extends Component {
     this.state = {
         _nome: '...',
         _tempoFila: -1,
+        _like: 0
     }
 }
 
@@ -21,7 +22,19 @@ componentDidMount() {
     .then(response => response.json())
     .then(data => this.setState({ 
         _nome: data[0].nome,
-        _tempoFila: data[0].tempoFila,
+        //_tempoFila: data[0].tempoFila,
+    }))
+    .catch((error) => {
+        alert('Erro' + error)
+      console.error(error);
+    });
+
+
+    fetch('https://blooming-fortress-34861.herokuapp.com/times/' + this.props.selecionado)
+    .then(response => response.json())
+    .then(data => this.setState({ 
+        _tempoFila: data.tempo,
+        _like: data.curtidas,
     }))
     .catch((error) => {
         alert('Erro' + error)
@@ -50,7 +63,7 @@ goExpand = () => {
         <View style={styles.infoContainer}>
           <Header nome = {this.state._nome}/>
           <InfoTime tempoFila = {this.state._tempoFila}/>
-          <ConfirmTime />
+          <ConfirmTime like = {this.state._like}/>
           <BottomButton acessarInfo = {this.goInfo} acessarExpand = {this.goExpand}/>
         </View>
         <SideColor tempoFila = {this.state._tempoFila}/>

@@ -16,26 +16,26 @@ import PinExpand from './src/componentes/PinExpand/index'
 
 const MainNavigator = createStackNavigator({
   //O primeiro item desse objeto será a tela inicial
-  PinExpand: {
-    screen: PinExpand,
-    navigationOptions: {
-      header: null,
-    }
-  },
   Mapa: {
     screen: Mapa,
     navigationOptions: {
       header: null,
     }
   },
-  PinExpandido: {
-    screen: PinExpandido,
+  Register: {
+    screen: RegisterScreen,
     navigationOptions: {
       header: null,
     }
   },
-  Register: {
-    screen: RegisterScreen,
+  PinExpand: {
+    screen: PinExpand,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  PinExpandido: {
+    screen: PinExpandido,
     navigationOptions: {
       header: null,
     }
