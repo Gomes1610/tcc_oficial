@@ -1,6 +1,7 @@
 import React from 'react'
 import MapView from 'react-native-maps';
-import { Text, View, StyleSheet, Image, Button } from 'react-native'
+import { Text, View, StyleSheet, Image, Button, Dimensions } from 'react-native'
+import { Icon } from 'react-native-elements'
 
 import GerenteCores from './GerenteCores'
 import PinReduzido from './PinReduzido'
@@ -42,18 +43,27 @@ export default class Mapa extends React.Component {
     // fetch('http://192.168.100.104:80/places') ////IP Gomes
     // fetch('http://192.168.0.6:80/places')  ////IP Gabriel
     //this.getPlaces()
-    
-    const mapWillFocus = this.props.navigation.addListener('willFocus', () => {
-      //alert('Estou focado')
+
+    this.mapWillFocus = this.props.navigation.addListener('willFocus', () => {
       this.setState({ status: false })
       this.getPlaces()
       this.refresh1()
+      this.timerRefresh1 = setInterval(()=> this.refresh1(), 30000)
+      //alert('focado')
     });
-    this.timerRefresh1 = setInterval(()=> this.refresh1(), 30000)
+
+    this.mapWillBlur = this.props.navigation.addListener('willBlur', () => {
+      clearInterval(this.timerRefresh1)
+      clearInterval(this.timerRefresh2)
+      //alert('desfocado')
+    });
   }
 
   componentWillUnmount() {
-    mapWillFocus.remove()
+    this.mapWillFocus.remove()
+    this.mapWillBlur.remove()
+    clearInterval(this.timerRefresh1)
+    clearInterval(this.timerRefresh2)
     //alert('morri')
   }
 
@@ -157,20 +167,26 @@ export default class Mapa extends React.Component {
           )
         }
 
-
-        {/* //Pin Reduzido e manipulação Show/Hide
-          this.state.status && (
-          <PinReduzido 
-            nome={this.state.pinSelect._nome}
-            capMax={this.state.pinSelect._capMax}
-            capAtual={this.state.pinSelect._capAtual}
-            tempoFila={this.state.pinSelect._tempoFila}
-            selecionado={this.state.pinSelect._id}
-            _navigate={navigate}
-            // _replace={replace}
+        <View style={styles.iconContainer}>
+          <Icon
+            name='refresh'
+            type='material-community'
+            size={17}
+            reverse
+            color='#3e92a1'
+            onPress={() => this.refresh1()}
           />
-          )
-        */ }
+
+          <Icon
+            name='exit-to-app'
+            type='material-community'
+            size={17}
+            reverse
+            color='#3e92a1'
+            onPress={() => this.props.navigation.goBack()}
+          />
+        </View>
+
       </View>
     )
   }
@@ -188,6 +204,8 @@ const EstiloMapaCustomizado = [
     ]
   }
 ]
+
+const {screenHeight, screenWidth} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   
@@ -224,5 +242,10 @@ const styles = StyleSheet.create({
   miniText: {
    color: 'black',
   },
-
+  iconContainer: {
+    position: 'absolute',
+    top: 25,
+    right: 10,
+    flexDirection: 'row',
+  },
 })

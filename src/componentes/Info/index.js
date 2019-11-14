@@ -17,8 +17,10 @@ export default class Info extends React.Component{
            tempoAtual: -1,
            tempoNovo: 0,
            qrCode_state: false,
+           start_state: true,
            firstQuest_state:false,
            secondQuest_state: false,
+           promotion_state: false,
            _description: '...',
         }
     }
@@ -76,6 +78,7 @@ export default class Info extends React.Component{
             .then((responseJson) => {
                 //alert("subiu")
                 this.liberarQrcode()
+                this.liberarPromotion()
             })
             .catch((error) => {
                 alert('Erro' + error)
@@ -84,28 +87,33 @@ export default class Info extends React.Component{
     }
 
     subirTempo = async () => {
-        const _selecionado = this.props.navigation.getParam('_selecionado', 0)
-        // fetch('http://192.168.100.104/places/tempo/'+ _selecionado, { ////IP Gomes
-        // fetch('http://192.168.0.6:80/places/tempo/'+ _selecionado, { //// IP Gabriel
-        
-        fetch('https://blooming-fortress-34861.herokuapp.com/times/' + _selecionado, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "tempo": this.state.tempoNovo,
+
+        if (this.state.tempoNovo == ''){
+            alert('Informar novo tempo')
+        } else {
+            
+            const _selecionado = this.props.navigation.getParam('_selecionado', 0)
+
+            fetch('https://blooming-fortress-34861.herokuapp.com/times/' + _selecionado, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "tempo": this.state.tempoNovo,
+                })
             })
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                //alert("subiu")
-                this.liberarQrcode()
-            })
-            .catch((error) => {
-                alert('Erro' + error)
-                console.error(error);
-            });
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    //alert("subiu")
+                    this.liberarQrcode()
+                    this.liberarPromotion()
+                })
+                .catch((error) => {
+                    alert('Erro' + error)
+                    console.error(error);
+                });
+        }
     }
 
     receberPermanencia = (dados) => {
@@ -115,6 +123,7 @@ export default class Info extends React.Component{
 
     receberTempoNovo = (dados) => {
         this.setState({tempoNovo: dados})
+        //alert(dados)
     }
 
     receberBack = () => {
@@ -130,13 +139,23 @@ export default class Info extends React.Component{
     
     liberarFirstQuest = () => {
         this.setState({
-            firstQuest_state: true
+            start_state: false,
+            firstQuest_state: true,
         })
     }
 
     liberarSecondQuest = () => {
         this.setState({
-            secondQuest_state: true
+            firstQuest_state: false,
+            secondQuest_state: true,
+        })
+    }
+
+    liberarPromotion = () => {
+        this.setState({
+            firstQuest_state: false,
+            secondQuest_state: false,
+            promotion_state: true,
         })
     }
 
@@ -144,17 +163,31 @@ export default class Info extends React.Component{
         return(
             <KeyboardAvoidingView behavior="padding" enabled>
             <ScrollView>
+
                 <View style={styles.container}>
                     <Title />
+                    <View style={styles.containerQuest}>
+
+                    {this.state.start_state && (
                     <FirstQuest enviarDadosPermanencia = {this.receberPermanencia} acionarTela= {this.liberarFirstQuest}/>
+                    )}
+
                     {this.state.firstQuest_state && (
                     <Confirm _tempoAtual = {this.state.tempoAtual} acionarLike = {this.subirLike} acionarTela= {this.liberarSecondQuest}/>
                     )}
+                    
                     {this.state.secondQuest_state && (
                     <SecondQuest enviarDadosTempo = {this.receberTempoNovo} acionarSubida = {this.subirTempo} />
                     )}
+                    
+                    {this.state.promotion_state && (
                     <Promotion description = {this.state._description} status = {this.state.qrCode_state}/>
+                    )}
+
+                    </View>
+
                     <Voltar enviarBack = {this.receberBack}/>
+
                 </View>
             </ScrollView>
             </KeyboardAvoidingView>

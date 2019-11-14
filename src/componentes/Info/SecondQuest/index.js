@@ -3,15 +3,21 @@ import { View, Text, TextInput, TouchableOpacity, ToastAndroid } from 'react-nat
 import styles from './styles';
 
 export default class SecondQuest extends Component {
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     _dados: '',
+  //   }
+  // }
 
-enviarTempo = (dados) => {
-  this.props.enviarDadosTempo(dados)
-}
+  enviarTempo = (dados) => {
+    this.props.enviarDadosTempo(dados)
+  }
 
-enviarComando = () => {  
-  this.props.acionarSubida()
-  ToastAndroid.show('Obrigado! Curta sua promo! :D', ToastAndroid.SHORT);
-}
+  enviarComando = () => {
+      this.props.acionarSubida()
+      //ToastAndroid.show('Obrigado! Curta sua promoção!', ToastAndroid.SHORT);
+  }
 
   render() {
     return (
@@ -23,6 +29,7 @@ enviarComando = () => {
             keyboardType={"numeric"}
             placeholder="minutos"
             placeholderTextColor={'#3e92a1'}
+            //onChangeText={(dados) => this.setState({ _dados: dados })}
             onChangeText={(dados) => this.enviarTempo(dados)}
           />
           <TouchableOpacity

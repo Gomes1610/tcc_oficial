@@ -28,6 +28,12 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
+  Info: {
+    screen: Info,
+    navigationOptions: {
+      header: null,
+    }
+  },
   PinExpand: {
     screen: PinExpand,
     navigationOptions: {
@@ -48,12 +54,6 @@ const MainNavigator = createStackNavigator({
   },
   ScanScreen: {
     screen: ScanScreen,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  Info: {
-    screen: Info,
     navigationOptions: {
       header: null,
     }
